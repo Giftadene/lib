@@ -2,10 +2,9 @@
   "name": "naijalib",
   "version": "1.0.0",
   "description": "Abridged Classification Scheme for Secondary School Libraries & Media Resource Centres (2026 NERDC)",
-  "main": "server.js",
   "scripts": {
-    "dev": "node server.js",
-    "start": "node server.js"
+    "dev": "node dev-server.js",
+    "start": "node dev-server.js"
   },
   "keywords": [
     "library-classification",

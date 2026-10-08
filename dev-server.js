@@ -22,6 +22,14 @@ const MIME_TYPES = {
 function serveFile(req, res, filePath) {
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
+      const ext = path.extname(filePath).toLowerCase();
+      // If requesting a static asset (.js, .css, .png, etc.) that does not exist, return 404
+      if (ext && ext !== '.html') {
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end(`404 Not Found: ${path.basename(filePath)}`);
+        return;
+      }
+
       // Fallback to index.html for client-side routing if file not found
       const indexPath = path.join(ROOT_DIR, 'index.html');
       fs.readFile(indexPath, (indexErr, indexData) => {
