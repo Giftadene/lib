@@ -4,7 +4,8 @@
   "description": "Abridged Classification Scheme for Secondary School Libraries & Media Resource Centres (2026 NERDC)",
   "scripts": {
     "dev": "node dev-server.js",
-    "start": "node dev-server.js"
+    "start": "node dev-server.js",
+    "build": "echo 'Static site ready'"
   },
   "keywords": [
     "library-classification",
