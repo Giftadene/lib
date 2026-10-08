@@ -1,0 +1,20 @@
+{
+  "name": "naijalib",
+  "version": "1.0.0",
+  "description": "Abridged Classification Scheme for Secondary School Libraries & Media Resource Centres (2026 NERDC)",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "library-classification",
+    "nerdc",
+    "waec",
+    "secondary-school",
+    "nigerian-education",
+    "dewey-decimal"
+  ],
+  "author": "NaijaLib Education Systems",
+  "license": "MIT"
+}
