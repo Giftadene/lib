@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "node dev-server.js",
     "start": "node dev-server.js",
-    "build": "echo 'Static site ready'"
+    "build": "node build.js"
   },
   "keywords": [
     "library-classification",
