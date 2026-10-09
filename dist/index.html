@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="web_dashboard" name="shell-type"/>
+  <title>NaijaLib - 2026 Nigerian Secondary School Library Classification & Resource Management System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    .spine-label { break-inside: avoid; page-break-inside: avoid; }
+    body.landing-mode aside { display: none !important; }
+    body.landing-mode header { left: 0 !important; }
+    body.landing-mode .pl-72 { padding-left: 0 !important; }
+    @media print {
+      aside, header, #naijalib-toast, .no-print { display: none !important; }
+      .pl-72 { padding-left: 0 !important; }
+      main { padding-top: 0 !important; }
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "error-container": "#ffdad6",
+            "on-error-container": "#93000a",
+            "tertiary": "#006c49",
+            "on-primary-fixed": "#2e1500",
+            "on-secondary-container": "#fffbff",
+            "inverse-on-surface": "#ecf1ff",
+            "on-primary-fixed-variant": "#6d3a00",
+            "on-primary": "#ffffff",
+            "surface-dim": "#cfdaf2",
+            "surface-container-highest": "#d8e3fb",
+            "primary-fixed-dim": "#ffb77a",
+            "on-secondary": "#ffffff",
+            "on-primary-container": "#6d3a00",
+            "primary-container": "#ff9f43",
+            "surface-container": "#e7eeff",
+            "on-secondary-fixed-variant": "#5516be",
+            "tertiary-fixed": "#6ffbbe",
+            "on-tertiary-fixed": "#002113",
+            "primary": "#8f4e00",
+            "on-error": "#ffffff",
+            "secondary-fixed-dim": "#d0bcff",
+            "on-surface": "#111c2d",
+            "outline": "#877365",
+            "on-surface-variant": "#544437",
+            "on-tertiary-fixed-variant": "#005236",
+            "primary-fixed": "#ffdcc2",
+            "secondary-fixed": "#e9ddff",
+            "outline-variant": "#dac2b1",
+            "surface-bright": "#f9f9ff",
+            "surface": "#f9f9ff",
+            "secondary": "#6b38d4",
+            "tertiary-fixed-dim": "#4edea3",
+            "tertiary-container": "#38cd93",
+            "on-tertiary": "#ffffff",
+            "inverse-primary": "#ffb77a",
+            "surface-variant": "#d8e3fb",
+            "surface-container-low": "#f0f3ff",
+            "on-background": "#111c2d",
+            "inverse-surface": "#263143",
+            "on-tertiary-container": "#005237",
+            "error": "#ba1a1a",
+            "background": "#f9f9ff",
+            "surface-tint": "#8f4e00",
+            "surface-container-high": "#dee8ff",
+            "on-secondary-fixed": "#23005c",
+            "secondary-container": "#8455ef",
+            "surface-container-lowest": "#ffffff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "margin-md": "2rem",
+            "gutter": "1rem",
+            "space-xl": "2.25rem",
+            "gutter-lg": "2rem",
+            "margin": "1rem",
+            "space-lg": "1.5rem",
+            "space-md": "1rem",
+            "gutter-md": "1.5rem",
+            "space-xs": "0.25rem",
+            "margin-lg": "3.5rem"
+          },
+          "fontFamily": {
+            "body-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "label-sm": ["Space Grotesk"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "label-md": ["Space Grotesk"],
+            "display-mobile": ["Plus Jakarta Sans"],
+            "display": ["Plus Jakarta Sans"],
+            "label-lg": ["Space Grotesk"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "label-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.03em", "fontWeight": "600" }],
+            "display-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "display": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "label-lg": ["15px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-surface font-body-md text-on-surface min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed">
+  <!-- SIDEBAR NAVIGATION -->
+  <aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-r border-surface-container-low">
+    <!-- Logo & Header -->
+    <div class="h-20 px-space-md flex items-center gap-space-sm cursor-pointer" onclick="window.app.navigateTo('dashboard')">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-primary-container flex items-center justify-center text-white shadow-sm font-label-md font-black text-xl">
+        NL
+      </div>
+      <div class="flex flex-col">
+        <span class="font-headline-sm text-headline-sm text-primary tracking-tight">NaijaLib</span>
+        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">2026 Secondary Scheme</span>
+      </div>
+    </div>
+
+    <!-- Offline & Local Node Status Indicator (PRD §67) -->
+    <div class="px-space-md mb-space-sm">
+      <div class="bg-surface-container-low p-space-sm rounded-xl flex items-center justify-between border border-surface-container">
+        <div class="flex items-center gap-space-xs">
+          <span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span>
+          <span class="font-label-sm text-label-sm text-tertiary font-bold">Local Node Active</span>
+        </div>
+        <span class="font-label-sm text-label-sm bg-surface-container-highest text-on-surface-variant px-space-xs py-0.5 rounded-full font-semibold">
+          Offline Ready
+        </span>
+      </div>
+    </div>
+
+    <!-- Main Navigation Links -->
+    <nav class="flex-1 px-space-md py-space-xs space-y-space-xs overflow-y-auto">
+      <!-- Section 1: Core Library & Classification -->
+      <div class="px-space-xs py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">
+        Core Library
+      </div>
+      <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="landing" href="#">
+        <span class="material-symbols-outlined text-xl">home</span>
+        <span class="font-body-sm text-body-sm">Home & Landing</span>
+      </a>
+      <a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-all bg-primary-container text-on-primary-container font-bold rounded-xl shadow-sm" data-path="dashboard" href="#">
+        <span class="material-symbols-outlined text-xl">dashboard</span>
+        <span class="font-body-sm text-body-sm">Dashboard</span>
+      </a>
+      <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="classification-explorer" href="#">
+        <span class="material-symbols-outlined text-xl">account_tree</span>
+        <span class="font-body-sm text-body-sm">Classification Explorer</span>
+      </a>
+      <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="classification-assistant" href="#">
+        <span class="material-symbols-outlined text-xl">psychology</span>
+        <span class="font-body-sm text-body-sm">Classification Assistant</span>
+      </a>
+      <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="master-schedule" href="#">
+        <span class="material-symbols-outlined text-xl">table_chart</span>
+        <span class="font-body-sm text-body-sm">Master Schedule (2026)</span>
+      </a>
+
+      <!-- Section 2: Cataloguing & Call Numbers -->
+      <div class="pt-space-sm px-space-xs py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">
+        Cataloguing & Labels
+      </div>
+      <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="catalogue-resources" href="#">
+        <span class="material-symbols-outlined text-xl">menu_book</span>
+        <span class="font-body-sm text-body-sm">Catalogue & Resources</span>
+      </a>
+      <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="call-number-cutter" href="#">
+        <span class="material-symbols-outlined text-xl">pin</span>
+        <span class="font-body-sm text-body-sm">Author Cutter & Call Marks</span>
+      </a>
+      <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="shelf-label-generator" href="#">
+        <span class="material-symbols-outlined text-xl">qr_code_2</span>
+        <span class="font-body-sm text-body-sm">Shelf & Spine Labels</span>
+      </a>
+      <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="shelf-locations" href="#">
+        <span class="material-symbols-outlined text-xl">shelves</span>
+        <span class="font-body-sm text-body-sm">Shelf Locations & Stacks</span>
+      </a>
+
+      <!-- Section 3: Operations & Patrons -->
+      <div class="pt-space-sm px-space-xs py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">
+        Circulation & Inventory
+      </div>
+      <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="circulation-desk" href="#">
+        <span class="material-symbols-outlined text-xl">assignment_ind</span>
+        <span class="font-body-sm text-body-sm">Circulation Desk</span>
+      </a>
+      <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="patrons-members" href="#">
+        <span class="material-symbols-outlined text-xl">badge</span>
+        <span class="font-body-sm text-body-sm">Members & Scholars</span>
+      </a>
+      <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="inventory-audit" href="#">
+        <span class="material-symbols-outlined text-xl">barcode_reader</span>
+        <span class="font-body-sm text-body-sm">Inventory Walkthrough</span>
+      </a>
+
+      <!-- Section 4: Controlled Vocabulary & Reference -->
+      <div class="pt-space-sm px-space-xs py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">
+        Reference & Vocabulary
+      </div>
+      <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="controlled-vocabulary" href="#">
+        <span class="material-symbols-outlined text-xl">share</span>
+        <span class="font-body-sm text-body-sm">Subject Headings (Vocab)</span>
+      </a>
+      <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="alphabetical-index" href="#">
+        <span class="material-symbols-outlined text-xl">format_list_numbered</span>
+        <span class="font-body-sm text-body-sm">Alphabetical Relative Index</span>
+      </a>
+      <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="scheme-glossary" href="#">
+        <span class="material-symbols-outlined text-xl">spellcheck</span>
+        <span class="font-body-sm text-body-sm">Scheme Glossary</span>
+      </a>
+
+      <!-- Section 5: Governance & Admin -->
+      <div class="pt-space-sm px-space-xs py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">
+        Scheme Governance
+      </div>
+      <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="local-extensions" href="#">
+        <span class="material-symbols-outlined text-xl">extension</span>
+        <span class="font-body-sm text-body-sm">Local School Extensions</span>
+      </a>
+      <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="scheme-admin" href="#">
+        <span class="material-symbols-outlined text-xl">admin_panel_settings</span>
+        <span class="font-body-sm text-body-sm">Classificationist Desk</span>
+      </a>
+      <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="reports-analytics" href="#">
+        <span class="material-symbols-outlined text-xl">assessment</span>
+        <span class="font-body-sm text-body-sm">Reports & Analytics</span>
+      </a>
+      <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="audit-trail" href="#">
+        <span class="material-symbols-outlined text-xl">rule_folder</span>
+        <span class="font-body-sm text-body-sm">Audit Trail</span>
+      </a>
+      <a id="nav-admin-users" class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="admin-users" href="#">
+        <span class="material-symbols-outlined text-xl">manage_accounts</span>
+        <span class="font-body-sm text-body-sm">User Management</span>
+      </a>
+      <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="backup-export" href="#">
+        <span class="material-symbols-outlined text-xl">cloud_sync</span>
+        <span class="font-body-sm text-body-sm">Backup & Import/Export</span>
+      </a>
+    </nav>
+
+    <!-- Bottom Scheme Compliance Badge -->
+    <div class="p-space-md border-t border-surface-container-low">
+      <div class="bg-secondary-fixed/50 p-space-md rounded-xl flex flex-col gap-space-xs border border-secondary-fixed">
+        <div class="flex items-center justify-between">
+          <span class="font-label-sm text-label-sm text-on-secondary-fixed-variant">Scheme Code</span>
+          <span class="font-label-sm text-label-sm bg-secondary text-on-secondary px-space-xs rounded-full font-bold">NERDC/26</span>
+        </div>
+        <span class="font-body-sm text-body-sm font-bold text-on-secondary-fixed">WAEC & NECO Compliant</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN APP CONTAINER -->
+  <div class="pl-72">
+    <!-- TOP FIXED HEADER -->
+    <header class="fixed top-0 left-72 right-0 h-20 bg-surface/90 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-b border-surface-container-low">
+      <div class="h-20 w-full px-space-lg flex items-center justify-between gap-space-md">
+        <!-- Campus Hub & Global Omnisearch -->
+        <div class="flex items-center gap-space-md">
+          <div class="flex items-center gap-space-xs bg-surface-container-low px-space-md py-space-xs rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.02)] border border-surface-container">
+            <span class="material-symbols-outlined text-primary text-sm">local_library</span>
+            <span class="font-label-md text-label-md text-on-surface font-semibold">King's & Queen's College Library - Lagos Hub</span>
+          </div>
+          <div class="relative flex items-center w-80 lg:w-96 cursor-pointer" onclick="window.app.openOmnisearch()">
+            <span class="material-symbols-outlined absolute left-3 text-outline text-lg">search</span>
+            <input class="omnisearch-trigger w-full pl-9 pr-12 py-space-xs rounded-full bg-surface-container-lowest text-on-surface placeholder:text-outline font-body-sm text-body-sm shadow-[0_2px_8px_rgba(0,0,0,0.02)] focus:outline-none focus:ring-2 focus:ring-secondary/40 transition-all border border-surface-container cursor-pointer" placeholder="⌘K Search 011.2, Electricity, or WAEC texts..." type="text" readonly/>
+            <span class="absolute right-3 font-label-sm text-label-sm bg-surface-container px-1.5 py-0.5 rounded text-on-surface-variant font-bold">⌘K</span>
+          </div>
+        </div>
+
+        <!-- Role Toggles & User Status -->
+        <div class="flex items-center gap-space-md">
+          <!-- Role Switcher (PRD §6 & §62) -->
+          <div class="flex items-center p-0.5 bg-surface-container-low rounded-full border border-surface-container">
+            <button data-mode-btn="student" class="px-space-md py-1 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+              Student Mode
+            </button>
+            <button data-mode-btn="librarian" class="px-space-md py-1 rounded-full font-label-sm text-label-sm bg-surface-container-lowest text-primary font-bold shadow-[0_1px_4px_rgba(0,0,0,0.05)]" type="button">
+              Librarian Desk
+            </button>
+            <button data-mode-btn="classificationist" class="px-space-md py-1 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+              Classificationist
+            </button>
+          </div>
+
+          <!-- Notification Bell -->
+          <button onclick="window.app.navigateTo('circulation-desk')" class="w-10 h-10 rounded-full bg-surface-container-lowest flex items-center justify-center text-on-surface-variant hover:text-on-surface shadow-[0_1px_4px_rgba(0,0,0,0.05)] transition-colors relative border border-surface-container" type="button">
+            <span class="material-symbols-outlined text-xl">notifications</span>
+            <span id="header-notification-badge" class="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-error ring-2 ring-white"></span>
+          </button>
+
+          <!-- Current Profile Badge & Settings Trigger -->
+          <div onclick="window.app.openProfileModal()" class="flex items-center gap-space-sm pl-space-xs cursor-pointer hover:bg-surface-container-low p-1.5 rounded-2xl transition-colors border border-transparent hover:border-surface-container" title="Click to view profile or change password">
+            <div class="text-right hidden sm:block">
+              <div id="header-profile-name" class="font-label-md text-label-md text-on-surface font-bold">Mr. Adeleke</div>
+              <div id="header-profile-role" class="font-label-sm text-label-sm text-on-surface-variant">Senior Cataloguer</div>
+            </div>
+            <img id="header-profile-avatar" alt="Profile" class="w-9 h-9 rounded-full object-cover ring-2 ring-primary-container shadow-sm" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80"/>
+          </div>
+
+          <!-- Auth Actions (Sign In / Sign Out) -->
+          <div id="header-auth-buttons" class="flex items-center gap-1.5">
+            <button id="header-btn-login" onclick="window.app.openLoginModal()" class="hidden px-3 py-1.5 rounded-full bg-secondary text-on-secondary font-label-sm text-xs font-bold shadow-sm hover:scale-105 transition-transform">
+              Sign In
+            </button>
+            <button id="header-btn-signup" onclick="window.app.openSignupModal()" class="hidden px-3 py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-sm text-xs font-bold shadow-sm hover:scale-105 transition-transform">
+              Sign Up
+            </button>
+            <button id="header-btn-logout" onclick="window.app.logoutUser()" class="px-2.5 py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-sm text-xs font-bold transition-colors flex items-center gap-1" title="Log Out">
+              <span class="material-symbols-outlined text-sm">logout</span>
+              <span class="hidden md:inline">Sign Out</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN VIEW CONTAINER -->
+    <main class="relative pt-20 bg-surface min-h-screen">
+      <div id="app-view-container" class="flex flex-col w-full px-space-md lg:px-space-lg py-space-md max-w-[1400px] mx-auto w-full">
+        <!-- Views rendered reactively by NaijaLibApp -->
+      </div>
+    </main>
+  </div>
+
+  <!-- APPLICATION SCRIPTS -->
+  <script src="data/master-schedule.js"></script>
+  <script src="data/initial-data.js"></script>
+  <script src="js/classification-engine.js"></script>
+  <script src="js/cutter-engine.js"></script>
+  <script src="js/label-generator.js"></script>
+  <script src="js/library-store.js"></script>
+  <script src="js/auth-service.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
