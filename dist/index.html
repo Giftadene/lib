@@ -3151,6 +3151,15 @@ function buildCutTbl(){
     '</tbody>';
 }
 
+/* ------------------------------------------------------------------ Scheme Structural Relationship Diagrams */
+function buildFigs(){
+  var f = $('figs');
+  if(!f || !IMG || !IMG.rel) return;
+  f.innerHTML = IMG.rel.map(function(r){
+    return '<figure><img alt="' + esc(r.cap) + '" src="data:image/jpeg;base64,' + r.b + '"><figcaption>' + esc(r.cap) + '</figcaption></figure>';
+  }).join('');
+}
+
 /* ------------------------------------------------------------------ Navigation Tabs Controller */
 function setTab(tabId){
   ['gen', 'idx', 'head', 'browse', 'cut', 'log', 'edit', 'help'].forEach(function(t){
@@ -3302,6 +3311,7 @@ document.addEventListener('keydown', function(ev){
 buildIdxAzBar();
 renderIdxList();
 buildTree();
+buildFigs();
 buildCutTbl();
 renderHList();
 renderSel();
