@@ -25,8 +25,20 @@ function copyRecursive(src, dest) {
   }
 }
 
-// Copy index.html
-fs.copyFileSync(path.join(ROOT_DIR, 'index.html'), path.join(DIST_DIR, 'index.html'));
+// Copy NERDC Classification Number Generator as primary index.html for Vercel production
+if (fs.existsSync(path.join(ROOT_DIR, 'NERDC_Classification_Number_Generator.html'))) {
+  // Set the 2026 Electronic Edition as the main entry point (index.html)
+  fs.copyFileSync(path.join(ROOT_DIR, 'NERDC_Classification_Number_Generator.html'), path.join(DIST_DIR, 'index.html'));
+  fs.copyFileSync(path.join(ROOT_DIR, 'NERDC_Classification_Number_Generator.html'), path.join(DIST_DIR, 'NERDC_Classification_Number_Generator.html'));
+  
+  // Preserve legacy prototype portal as legacy-portal.html
+  if (fs.existsSync(path.join(ROOT_DIR, 'index.html'))) {
+    fs.copyFileSync(path.join(ROOT_DIR, 'index.html'), path.join(DIST_DIR, 'legacy-portal.html'));
+  }
+} else {
+  // Fallback to index.html if generator is missing
+  fs.copyFileSync(path.join(ROOT_DIR, 'index.html'), path.join(DIST_DIR, 'index.html'));
+}
 
 // Copy data/ directory
 if (fs.existsSync(path.join(ROOT_DIR, 'data'))) {
