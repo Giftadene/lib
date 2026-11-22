@@ -1249,12 +1249,12 @@ body.kiosk-mode table.t td {
 
 <main>
 <!-- ======================= 1. GENERATOR PANE ======================= -->
-<section class="pane" id="pane-gen">
+<section class="pane act" id="pane-gen">
  <div class="grid">
   <div>
    <div class="card">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
-      <h2 style="margin:0"><span class="step">1</span> Select or Input Classification Notation</h2>
+      <h2 style="margin:0"><span class="step">1</span> Search the subject</h2>
       <div class="mode-switch">
         <button type="button" class="mode-btn active" id="btnModeSearch">🔍 Search &amp; Browse</button>
         <button type="button" class="mode-btn" id="btnModeDirect">✍️ Direct Notation</button>
@@ -1264,63 +1264,53 @@ body.kiosk-mode table.t td {
     <div id="wrapDirectMode" hidden style="margin-bottom:16px;background:var(--soft);border:1px solid var(--line-strong);border-radius:10px;padding:14px">
       <label class="l" for="inpDirectNotation" style="margin-top:0">Type or Paste Classification Notation</label>
       <div class="row">
-        <input id="inpDirectNotation" type="text" placeholder="e.g. 0105.41, 0431.11vB, 0201.21 or custom..." autocomplete="off" spellcheck="false" style="font-family:var(--mono);font-size:16px;font-weight:700">
+        <input id="inpDirectNotation" type="text" placeholder="e.g. 0103.04i, 0105.41, 0431.11vB, 0201.21 or custom..." autocomplete="off" spellcheck="false" style="font-family:var(--mono);font-size:16px;font-weight:700">
         <button class="btn" id="btnResolveNotation" type="button">Resolve &amp; Apply</button>
       </div>
       <div class="hint">Type any official or custom NERDC notation. The engine decodes the class, subject, stage, theme, and topic in real time.</div>
       <div id="directBreakdown" class="notation-breakdown" hidden></div>
     </div>
+
     <div id="wrapSearchMode">
-    <label class="l" for="q">Subject keyword or topic <span style="font-weight:400;color:var(--muted)">(e.g. Fractions, Guided Reading, Computer Networks, Soil...)</span></label>
-    <div class="sw">
-      <div class="row">
-        <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Type a subject, concept or notation (e.g. 0105.03, Fractions)..." aria-controls="results" aria-autocomplete="list">
-        <button class="btn alt" id="qClear" type="button">Clear</button>
+      <label class="l" for="q">Subject keyword <span style="font-weight:400;color:var(--muted)">(a subject heading, curriculum topic, or a notation such as 0105.03)</span></label>
+      <div class="sw">
+        <div class="row">
+          <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Type a subject, concept or notation (e.g. 0105.03, Fractions)..." aria-controls="results" aria-autocomplete="list">
+          <button class="btn alt" id="qClear" type="button">Clear</button>
+        </div>
+        <div id="sugg" role="listbox" hidden></div>
       </div>
-      <div id="sugg" role="listbox" hidden></div>
-    </div>
 
-    <div class="two" style="margin-top:10px">
-      <div>
-        <label class="l" for="fStage">Educational Stage filter <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
-        <select id="fStage">
-          <option value="">All Educational Stages</option>
-          <option value="basic">Basic Education (Primary 1 &ndash; JSS 3)</option>
-          <option value="sec">Senior Secondary (SSS 1 &ndash; SSS 3)</option>
-          <option value="trade">Trades, Vocation &amp; Crafts (TVET)</option>
-        </select>
+      <div class="two" style="margin-top:10px">
+        <div>
+          <label class="l" for="fStage">Educational Stage filter <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+          <select id="fStage">
+            <option value="">All Educational Stages</option>
+            <option value="basic">Basic Education (Primary 1 &ndash; JSS 3)</option>
+            <option value="sec">Senior Secondary (SSS 1 &ndash; SSS 3)</option>
+            <option value="trade">Trades, Vocation &amp; Crafts (TVET)</option>
+          </select>
+        </div>
+        <div>
+          <label class="l" for="fSubj">Limit the search to one subject <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+          <select id="fSubj"></select>
+        </div>
       </div>
-      <div>
-        <label class="l" for="fSubj">Limit to one subject <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
-        <select id="fSubj"></select>
-      </div>
-    </div>
 
-    <div class="hint" style="margin-top:10px">
-      <b>Quick Presentation Topics for Abuja Demo:</b>
-    </div>
-    <div class="chip-bar">
-      <button type="button" class="demo-chip" data-try="Fractions">Fractions (Maths)</button>
-      <button type="button" class="demo-chip" data-try="Guided Reading">Guided Reading</button>
-      <button type="button" class="demo-chip" data-try="Drones">Drones &amp; UAVs</button>
-      <button type="button" class="demo-chip" data-try="Solar Photovoltaic">Solar PV Installation</button>
-      <button type="button" class="demo-chip" data-try="Beauty and Cosmetology">Beauty &amp; Cosmetology</button>
-      <button type="button" class="demo-chip" data-try="Crop Production">Crop Production</button>
-      <button type="button" class="demo-chip" data-try="Nigerian History">Nigerian History</button>
-      <button type="button" class="demo-chip" data-try="Computer Hardware and GSM Repairs">GSM &amp; Computer Repair</button>
-    </div>
+      <p class="hint" style="margin:8px 0 0">An <b>exact match</b> is shown first. If the keyword is not an authorized scheme term, the closest entries are listed so you can pick the one that fits. Check <button class="linkbtn" data-tab="head" type="button">Subject Headings</button> to confirm the authorized vocabulary.</p>
 
-    <div id="vocab" aria-live="polite"></div>
-   </div>
+      <div id="vocab" aria-live="polite"></div>
 
-   </div>
-   <div class="card" id="resCard">
-    <div id="results" aria-live="polite"></div>
+      <div id="results" aria-live="polite"></div>
+    </div>
    </div>
   </div>
 
   <div class="side">
-   <div class="card" id="selCard"></div>
+   <div class="card" id="selCard">
+     <h2>Classification number</h2>
+     <div class="empty" style="padding:12px 4px">No entry selected yet.<br>Search a subject and choose a row.</div>
+   </div>
 
    <div class="card" id="callCard">
     <h2><span class="step">2</span> Author Cutter &amp; Spine Call Number</h2>
@@ -1810,8 +1800,8 @@ IMG = {"l": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwY
 var DATA = JSON.parse(document.getElementById('data').textContent);
 
 /* Set logo images */
-if(IMG.l) $('logoLeft').src = 'data:image/jpeg;base64,' + IMG.l;
-if(IMG.r) $('logoRight').src = 'data:image/png;base64,' + IMG.r;
+if(IMG.l && $('logoLeft')) $('logoLeft').src = 'data:image/jpeg;base64,' + IMG.l;
+if(IMG.r && $('logoRight')) $('logoRight').src = 'data:image/png;base64,' + IMG.r;
 
 /* ------------------------------------------------------------------ helpers */
 function $(id){ return document.getElementById(id); }
@@ -1833,6 +1823,7 @@ function headTerm(t){ return norm(t.split(/\s*[(:]\s*|\s[-\u2013\u2014]\s/)[0]);
 
 function toast(msg){
   var t = $('toast');
+  if(!t) return;
   t.innerHTML = '<span>\u2713</span> ' + esc(msg);
   t.hidden = false;
   clearTimeout(toast.h);
@@ -1917,7 +1908,7 @@ function saveCustomTopics(){
 
 var SUBJ_MAP = {};
 DATA.h.forEach(function(row){
-  var notation = row[0], name = row[1];
+  var notation = row.n, name = row.h;
   if(notation && notation.length === 4) SUBJ_MAP[notation] = name;
 });
 
@@ -1984,41 +1975,754 @@ function rebuildSchemeData(){
   populateSubjectDropdowns();
 }
 
+function ancestors(e){
+  var a = [], p = e.p;
+  while(p && byN[p]){
+    a.unshift(byN[p]);
+    p = byN[p].p;
+  }
+  return a;
+}
+
+function subjName(e){
+  return e.sub && byN[e.sub] ? byN[e.sub].t : (CLS[e.cls] || '');
+}
+
+function nb(n){
+  return '<span class="nb c' + n.slice(0, 2) + '">' + esc(n) + '</span>';
+}
+
+function ttl(t){
+  return '<span dir="auto">' + esc(t) + '</span>';
+}
+
+function crumbText(e){
+  var a = ancestors(e).filter(function(x){ return x.lv >= 2; });
+  return a.map(function(x){ return x.t; }).join(' › ');
+}
+
 function populateSubjectDropdowns(){
   var fSubj = $('fSubj');
   var inpParent = $('inpParentSubject');
-  if(!fSubj || !inpParent) return;
+  if(!fSubj) return;
 
   var currentFVal = fSubj.value;
-  var currentPVal = inpParent.value;
+  var currentPVal = inpParent ? inpParent.value : '';
 
   var opts = '<option value="">All Subjects (no limit)</option>';
   var pOpts = '<option value="">Select Parent Subject</option>';
 
-  var subKeys = Object.keys(SUBJ_MAP).sort();
-  subKeys.forEach(function(k){
-    var title = SUBJ_MAP[k];
-    opts += '<option value="' + esc(k) + '">' + esc(k) + ' &ndash; ' + esc(title) + '</option>';
-    pOpts += '<option value="' + esc(k) + '">' + esc(k) + ' &ndash; ' + esc(title) + '</option>';
+  Object.keys(CLS).forEach(function(c){
+    opts += '<optgroup label="' + c + ' · ' + esc(CLS[c]) + '">';
+    E.filter(function(e){ return e.lv === 2 && e.cls === c; }).forEach(function(e){
+      opts += '<option value="' + esc(e.n) + '">' + esc(e.n) + ' · ' + esc(e.t) + '</option>';
+      pOpts += '<option value="' + esc(e.n) + '">' + esc(e.n) + ' · ' + esc(e.t) + '</option>';
+    });
+    opts += '</optgroup>';
   });
 
   fSubj.innerHTML = opts;
-  inpParent.innerHTML = pOpts;
+  if(inpParent) inpParent.innerHTML = pOpts;
 
   if(currentFVal) fSubj.value = currentFVal;
-  if(currentPVal) inpParent.value = currentPVal;
+  if(currentPVal && inpParent) inpParent.value = currentPVal;
 }
 
 // Initial build of scheme data
 rebuildSchemeData();
 
+/* ------------------------------------------------------------------ headings data */
+var H = DATA.h, HBY = {};
+H.forEach(function(h){ HBY[h.n] = h; });
+
+function parseRefs(str){
+  if(!str) return [];
+  return str.split(/;\s*/).map(function(p){
+    var m = /^(.*?)\s*\[(\d{2,4}(?:\.\d{2})?)\]\s*$/.exec(p.trim());
+    return m ? { label: m[1], n: m[2] } : { label: p.trim(), n: null };
+  }).filter(function(r){ return r.label; });
+}
+
+function linkify(s){
+  return esc(s).replace(/\[(\d{2,4}(?:\.\d{2})?)\]/g, function(_, n){
+    return byN[n] ? '<button type="button" class="linkbtn" data-go="' + n + '">[' + n + ']</button>' : '[' + n + ']';
+  });
+}
+
+/* non-preferred (see) terms: UI list + UF terms */
+var SEE = [];
+DATA.u.forEach(function(u){ SEE.push({ term: u.term, use: u.ui, kind: 'UI' }); });
+H.forEach(function(h){
+  if(h.uf){
+    h.uf.forEach(function(t){ SEE.push({ term: t, use: h.h + ' [' + h.n + ']', kind: 'UF', head: h.n }); });
+  }
+});
+SEE.forEach(function(s){ s.nt = norm(s.term); s.ht = headTerm(s.term); });
+
 /* ------------------------------------------------------------------ state */
-var sel = null;
-var curCall = null;
+var sel = null, lastQ = '', shown = 40, curRes = null;
 var activeGenMode = 'search'; // 'search' or 'direct'
+
+/* ------------------------------------------------------------------ search */
+function variants(qn){
+  var v = [qn];
+  if(qn.length > 3 && /s$/.test(qn)){
+    v.push(qn.replace(/(?:es|s)$/, ''));
+    v.push(qn.slice(0, -1));
+  }
+  return v.filter(function(x, i, a){ return x && a.indexOf(x) === i; });
+}
+
+function search(q, subj, stage){
+  var qn = norm(q), res = { exact: [], rel: [], notation: null };
+  var raw = q.trim();
+  if(/^[0-9.]+[A-Za-z]*$/.test(raw)){
+    res.notation = byN[raw] || null;
+    if(!res.notation){
+      var low = raw.toLowerCase();
+      for(var k = 0; k < E.length; k++){
+        if(E[k].n.toLowerCase() === low){ res.notation = E[k]; break; }
+      }
+    }
+  }
+  if(!qn) return res;
+  var vs = variants(qn), words = qn.split(' ');
+  var tiers = [[], [], [], [], [], []];
+  E.forEach(function(e){
+    if(stage && e.stg && e.stg.tag !== stage) return;
+    if(subj && e.n.indexOf(subj) !== 0 && e.sub !== subj) return;
+    if(e.nt === qn){ res.exact.push(e); return; }
+    var best = 9;
+    for(var j = 0; j < vs.length; j++){
+      var v = vs[j];
+      if(e.nt === v || e.ht === v || e.ht === qn){ best = Math.min(best, 0); }
+      else if(e.nt.indexOf(v) === 0){ best = Math.min(best, 1); }
+      else if((' ' + e.nt + ' ').indexOf(' ' + v + ' ') >= 0){ best = Math.min(best, 2); }
+      else if(e.nt.indexOf(v) >= 0){ best = Math.min(best, 3); }
+      else if(words.every(function(w){ return e.wl.some(function(x){ return x.indexOf(w) === 0 || (w.length > 3 && x.indexOf(w.replace(/s$/, '')) === 0); }); })){ best = Math.min(best, 4); }
+    }
+    if(best < 9) tiers[best].push(e);
+  });
+  tiers.forEach(function(t){
+    t.sort(function(a, b){ return (a.nt.length - b.nt.length) || (a.i - b.i); });
+    res.rel = res.rel.concat(t);
+  });
+  return res;
+}
+
+function hilite(t, q){
+  var s = esc(t), w = q.trim();
+  if(!w) return s;
+  var i = t.toLowerCase().indexOf(w.toLowerCase());
+  if(i < 0) return s;
+  return esc(t.slice(0, i)) + '<mark>' + esc(t.slice(i, i + w.length)) + '</mark>' + esc(t.slice(i + w.length));
+}
+
+function rowHTML(e, q, exact){
+  return '<div class="res' + (exact ? ' exact' : '') + (sel && sel.n === e.n ? ' sel' : '') + '" data-n="' + esc(e.n) + '" role="button" tabindex="0">' +
+    nb(e.n) +
+    '<span class="tt">' + (exact ? ttl(e.t) : '<span dir="auto">' + hilite(e.t, q) + '</span>') + '</span>' +
+    '<span class="lvl">' + esc((LV[e.lv] || 'TOPIC').toUpperCase()) + '</span>' +
+    '<span class="bc">' + esc(crumbText(e) || CLS[e.cls] || '') + '</span>' +
+  '</div>';
+}
+
+function markSel(){
+  var all = document.querySelectorAll('#results .res');
+  for(var i = 0; i < all.length; i++){
+    var isCurrent = !!sel && all[i].getAttribute('data-n') === sel.n;
+    all[i].classList.toggle('sel', isCurrent);
+    all[i].classList.toggle('on', isCurrent);
+  }
+}
+
+/* ------------------------------------------------------------------ suggestions */
+var sg = { items: [], on: -1 };
+
+function showSugg(){
+  var q = $('q').value, qn = norm(q), box = $('sugg');
+  if(!box) return;
+  if(qn.length < 2){ box.hidden = true; sg.items = []; return; }
+  var subj = $('fSubj').value, stage = $('fStage').value, out = [], seenT = {};
+  for(var z = 0; z < E.length && out.length < 3; z++){
+    var ez = E[z];
+    if(stage && ez.stg && ez.stg.tag !== stage) continue;
+    if(subj && ez.n.indexOf(subj) !== 0) continue;
+    if(ez.nt === qn){ out.push(ez); }
+  }
+  out.forEach(function(o){ seenT[o.nt] = 1; });
+  for(var i = 0; i < E.length && out.length < 8; i++){
+    var e = E[i];
+    if(stage && e.stg && e.stg.tag !== stage) continue;
+    if(subj && e.n.indexOf(subj) !== 0) continue;
+    if(e.nt.indexOf(qn) === 0 && !seenT[e.nt]){ seenT[e.nt] = 1; out.push(e); }
+  }
+  for(var j = 0; j < E.length && out.length < 8; j++){
+    var f = E[j];
+    if(stage && f.stg && f.stg.tag !== stage) continue;
+    if(subj && f.n.indexOf(subj) !== 0) continue;
+    if(!seenT[f.nt] && (' ' + f.nt).indexOf(' ' + qn) >= 0){ seenT[f.nt] = 1; out.push(f); }
+  }
+  sg.items = out; sg.on = -1;
+  if(!out.length){ box.hidden = true; return; }
+  box.innerHTML = out.map(function(e, i){
+    return '<div role="option" data-i="' + i + '"><span dir="auto">' + esc(e.t) + '</span><span class="sn">' + esc(e.n) + '</span></div>';
+  }).join('');
+  box.hidden = false;
+
+  box.querySelectorAll('div[role="option"]').forEach(function(item){
+    item.addEventListener('click', function(){
+      var idx = parseInt(this.getAttribute('data-i'), 10);
+      pickSugg(idx);
+    });
+  });
+}
+
+function pickSugg(i){
+  var e = sg.items[i];
+  if(!e) return;
+  $('q').value = e.t;
+  $('sugg').hidden = true;
+  runSearch();
+  selectEntry(e.n);
+}
+
+function runSearch(){
+  var q = $('q').value, subj = $('fSubj').value, stage = $('fStage').value;
+  lastQ = q; shown = 40;
+  var R = $('results'), V = $('vocab');
+  if(!R || !V) return;
+
+  if(!q.trim()){
+    curRes = null;
+    V.innerHTML = '';
+    R.innerHTML = '<div class="empty">' +
+      '<div class="lg"><img alt="" src="data:image/jpeg;base64,' + IMG.l + '"><img alt="" src="data:image/png;base64,' + IMG.r + '"></div>' +
+      '<div><b>Type a subject keyword above.</b></div>' +
+      '<div class="hint">The matching classification number will appear here.<br><b>Quick Presentation Topics for Abuja Demo:</b></div>' +
+      '<div class="chip-bar" style="margin-top:10px;justify-content:center;display:flex;flex-wrap:wrap;gap:6px">' +
+        '<button type="button" class="demo-chip" data-try="Fractions">Fractions (Maths)</button>' +
+        '<button type="button" class="demo-chip" data-try="Guided Reading">Guided Reading</button>' +
+        '<button type="button" class="demo-chip" data-try="Drones">Drones &amp; UAVs</button>' +
+        '<button type="button" class="demo-chip" data-try="Solar Photovoltaic">Solar PV Installation</button>' +
+        '<button type="button" class="demo-chip" data-try="Beauty and Cosmetology">Beauty &amp; Cosmetology</button>' +
+        '<button type="button" class="demo-chip" data-try="Crop Production">Crop Production</button>' +
+        '<button type="button" class="demo-chip" data-try="Nigerian History">Nigerian History</button>' +
+        '<button type="button" class="demo-chip" data-try="Computer Hardware and GSM Repairs">GSM &amp; Computer Repair</button>' +
+      '</div>' +
+    '</div>';
+    bindDemoChips();
+    return;
+  }
+
+  var res = search(q, subj, stage);
+  curRes = res;
+  var qn = norm(q), vh = '';
+
+  /* vocabulary control */
+  var seen = {};
+  SEE.forEach(function(s){
+    if(qn && (s.nt === qn || s.ht === qn)){
+      var key = s.term + s.use;
+      if(seen[key]) return;
+      seen[key] = 1;
+      vh += '<div class="notice bad"><b>Vocabulary control:</b> \u201C' + esc(s.term) + '\u201D is <b>not an authorized heading</b>. <b>Use instead:</b> ' + linkify(s.use) + '</div>';
+    }
+  });
+
+  if(res.exact.length){
+    vh += '<div class="notice ok"><b>Authorized scheme term.</b> \u201C' + esc(q.trim()) + '\u201D matches ' + res.exact.length + ' entr' + (res.exact.length > 1 ? 'ies' : 'y') + ' in the scheme exactly.</div>';
+  } else if(!res.notation){
+    vh += '<div class="notice warn"><b>No exact match</b> for \u201C' + esc(q.trim()) + '\u201D. Nothing has been assigned. Choose the closest entry below, or search the <button type="button" class="linkbtn" data-tab="head">Subject Headings</button> for the authorized term.</div>';
+  }
+  V.innerHTML = vh;
+
+  var h = '';
+  if(res.notation){
+    h += '<div class="sect ex">Notation lookup</div>' + rowHTML(res.notation, q, true);
+  }
+  if(res.exact.length){
+    h += '<div class="sect ex">Exact match' + (res.exact.length > 1 ? 'es (' + res.exact.length + ')' : '') + '</div>';
+    if(res.exact.length > 1){
+      h += '<div class="hint" style="margin:0 0 4px">This term occurs under more than one subject. Choose the occurrence whose subject fits the book.</div>';
+    }
+    res.exact.forEach(function(e){ h += rowHTML(e, q, true); });
+  }
+  if(res.rel.length){
+    h += '<div class="sect rel">' + (res.exact.length ? 'Other entries containing your keyword' : 'Closest entries') + ' (' + res.rel.length + ')</div>';
+    res.rel.slice(0, shown).forEach(function(e){ h += rowHTML(e, q, false); });
+    if(res.rel.length > shown){
+      h += '<div style="margin:10px 0"><button type="button" class="btn ghost sm" id="btnShowMore">Show ' + Math.min(60, res.rel.length - shown) + ' more</button></div>';
+    }
+  } else if(!res.exact.length && !res.notation){
+    h += '<div class="empty">No entries contain \u201C' + esc(q.trim()) + '\u201D.<div class="hint">Check the spelling, try a shorter or broader word, or clear the subject filter.</div></div>';
+  }
+  R.innerHTML = h;
+
+  /* auto-select a single exact match */
+  if(res.exact.length === 1 && (!sel || sel.n !== res.exact[0].n)){
+    selectEntry(res.exact[0].n, { quiet: true });
+  }
+  markSel();
+  bindResultEvents();
+}
+
+function bindResultEvents(){
+  var R = $('results');
+  if(!R) return;
+  R.querySelectorAll('.res').forEach(function(el){
+    el.addEventListener('click', function(){
+      var n = this.getAttribute('data-n');
+      if(byN[n]) selectEntry(n);
+    });
+  });
+  var btnMore = $('btnShowMore');
+  if(btnMore){
+    btnMore.addEventListener('click', function(){
+      shown += 40;
+      runSearch();
+    });
+  }
+}
+
+function bindDemoChips(){
+  document.querySelectorAll('#results [data-try]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var kw = this.getAttribute('data-try');
+      $('q').value = kw;
+      runSearch();
+    });
+  });
+}
+
+/* ------------------------------------------------------------------ selection */
+function selectEntry(n, opt){
+  var e = byN[n]; if(!e) return;
+  sel = e; opt = opt || {};
+  renderSel();
+  markSel();
+  renderCall();
+  if(opt.goto){
+    showTab('gen');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  if(!opt.quiet && window.innerWidth <= 960){
+    var c = $('selCard');
+    if(c) c.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function renderSel(){
+  var c = $('selCard');
+  if(!c) return;
+  if(!sel){
+    c.innerHTML = '<h2>Classification number</h2><div class="empty" style="padding:12px 4px">No entry selected yet.<br>Search a subject and choose a row.</div>';
+    return;
+  }
+  var e = sel, anc = ancestors(e), sub = HBY[e.sub], cl = HBY[e.cls];
+  var h = '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="lvl">' + (LV[e.lv] || 'TOPIC').toUpperCase() + '</span><span class="lvl">' + esc(CLS[e.cls] || '') + '</span>' + (e.isCustom ? '<span class="meta-tag amber">Custom Topic</span>' : '') + '</div>';
+  h += '<div class="bigno" style="color:var(--c' + e.cls + ')">' + esc(e.n) + '</div>';
+  h += '<div class="sel-title">' + ttl(e.t) + '</div>';
+  h += '<div class="row noprint" style="flex-wrap:wrap;margin-bottom:12px"><button class="btn sm" id="btnCopyNotation" type="button">Copy notation</button></div>';
+  
+  h += '<h3>Where it sits in the scheme</h3><div class="crumbs">';
+  anc.forEach(function(a){
+    h += '<button type="button" class="crumb-btn" data-n="' + a.n + '">' + nb(a.n) + '<span class="ct">' + ttl(a.t) + '</span></button>';
+  });
+  h += '<div style="display:flex;gap:8px;align-items:baseline;padding:2px 0">' + nb(e.n) + '<b>' + ttl(e.t) + '</b></div></div>';
+  
+  if(e.notes){
+    h += '<div class="hint" style="margin-top:6px;background:#f1f5f9;padding:6px 10px;border-radius:6px"><b>Notes:</b> ' + esc(e.notes) + '</div>';
+  }
+  
+  if(sub){
+    h += '<h3>Authorized subject heading</h3><div><b>' + esc(sub.h) + '</b> [' + sub.n + ']</div>';
+    if(sub.sn) h += '<details style="margin:6px 0"><summary style="cursor:pointer;font-size:13px;font-weight:600;color:var(--navy)">Scope note</summary><div class="sn-text" style="font-size:13px;line-height:1.5;color:var(--ink-d);margin-top:6px;background:var(--soft);padding:8px 12px;border-radius:6px">' + esc(sub.sn) + '</div></details>';
+    var rt = parseRefs(sub.rt).filter(function(r){ return r.n && byN[r.n]; });
+    if(rt.length){
+      h += '<div class="hint" style="margin-bottom:4px;margin-top:8px">Related subjects (RT):</div><div class="chips">' + rt.map(function(r){ return '<button type="button" class="chip" data-n="' + r.n + '">' + esc(r.label) + ' [' + r.n + ']</button>'; }).join('') + '</div>';
+    }
+    h += '<p style="margin:8px 0 0"><button type="button" class="linkbtn" data-head="' + sub.n + '">Open this heading in Subject Headings \u2192</button></p>';
+  } else if(cl){
+    h += '<h3>Authorized heading</h3><div><b>' + esc(cl.h) + '</b> [' + cl.n + ']</div>';
+  }
+  
+  var same = (byNorm[e.nt] || []).filter(function(x){ return x.n !== e.n; });
+  if(same.length){
+    h += '<h3>Same term elsewhere in the scheme</h3>';
+    same.slice(0, 8).forEach(function(x){
+      h += '<div class="kid" data-n="' + x.n + '">' + nb(x.n) + '<span>' + esc(subjName(x)) + '</span></div>';
+    });
+    if(same.length > 8) h += '<div class="hint">\u2026and ' + (same.length - 8) + ' more</div>';
+  }
+  
+  var k = kids[e.n] || [];
+  if(k.length){
+    h += '<h3>More specific entries (' + k.length + ')</h3><div class="hint" style="margin:0 0 4px">Use one of these if the book is narrower than \u201C' + esc(e.t.length > 50 ? e.t.slice(0, 50) + '\u2026' : e.t) + '\u201D.</div>';
+    k.slice(0, 10).forEach(function(x){
+      h += '<div class="kid" data-n="' + x.n + '">' + nb(x.n) + '<span dir="auto">' + esc(x.t) + '</span></div>';
+    });
+    if(k.length > 10){
+      h += '<details><summary style="cursor:pointer;font-size:12.5px;color:var(--navy)">Show the other ' + (k.length - 10) + '</summary>' + k.slice(10).map(function(x){
+        return '<div class="kid" data-n="' + x.n + '">' + nb(x.n) + '<span dir="auto">' + esc(x.t) + '</span></div>';
+      }).join('') + '</details>';
+    }
+  }
+  c.innerHTML = h;
+
+  // Bind click events on crumbs, chips, kids
+  c.querySelectorAll('[data-n]').forEach(function(btn){
+    btn.addEventListener('click', function(ev){
+      ev.preventDefault();
+      var targetN = this.getAttribute('data-n');
+      if(byN[targetN]) selectEntry(targetN);
+    });
+  });
+  c.querySelectorAll('[data-head]').forEach(function(btn){
+    btn.addEventListener('click', function(ev){
+      ev.preventDefault();
+      var headN = this.getAttribute('data-head');
+      showTab('head');
+      var hItem = document.querySelector('#headList [data-n="' + headN + '"]');
+      if(hItem) hItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+  var btnCopy = $('btnCopyNotation');
+  if(btnCopy) btnCopy.addEventListener('click', function(){ copy(sel.n, 'Copied notation ' + sel.n); });
+}
+
+/* ------------------------------------------------------------------ direct notation resolver */
+function resolveDirectNotation(inputCode){
+  inputCode = String(inputCode || '').trim();
+  if(!inputCode){ toast('Please enter a classification notation'); return; }
+
+  // Check if exists in byN
+  if(byN[inputCode]){
+    selectEntry(inputCode);
+    toast('Resolved statutory notation: ' + inputCode);
+    updateDirectBreakdown(byN[inputCode]);
+    return;
+  }
+
+  // Construct dynamic entry
+  var cls = inputCode.slice(0, 2);
+  var clsTitle = CLS[cls] || 'Special / Extension Field';
+  var sub = inputCode.length >= 4 ? inputCode.slice(0, 4) : '';
+  var subTitle = SUBJ_MAP[sub] || 'Custom Subject (' + sub + ')';
+  var stg = stageOf(inputCode);
+  var lvName = LV[levelOf(inputCode)] || 'Custom Subdivision';
+
+  var dynamicEntry = {
+    n: inputCode,
+    t: 'Direct Entry: ' + inputCode,
+    cls: cls,
+    sub: sub,
+    lv: levelOf(inputCode),
+    p: parentOf(inputCode) || sub || cls,
+    stg: stg,
+    isCustom: true,
+    notes: 'Directly resolved notation.'
+  };
+
+  byN[inputCode] = dynamicEntry;
+  E.push(dynamicEntry);
+  selectEntry(inputCode);
+  updateDirectBreakdown(dynamicEntry);
+  toast('Applied dynamic notation: ' + inputCode);
+}
+
+function updateDirectBreakdown(e){
+  var bd = $('directBreakdown');
+  if(!bd) return;
+  bd.hidden = false;
+  var anc = ancestors(e);
+  var treeStr = anc.map(function(a){ return a.n + ' (' + a.t + ')'; }).concat([e.n + ' (' + e.t + ')']).join(' \u2192 ');
+  bd.innerHTML = '<div style="font-size:12.5px;color:var(--ink-d);line-height:1.4">' +
+    '<b>Decoded Hierarchy:</b> ' + esc(treeStr) + '<br>' +
+    '<b>Stage:</b> ' + esc(e.stg.text) + ' | <b>Class:</b> ' + esc(CLS[e.cls] || 'General') +
+  '</div>';
+}
+
+/* ------------------------------------------------------------------ Cutter Engine */
+function rangeDigit(ch, table){
+  for(var i = 0; i < table.length; i++){
+    if(ch >= table[i][0] && ch <= table[i][1]){
+      return { d: table[i][2], r: table[i][0] === table[i][1] ? table[i][0] : table[i][0] + '\u2013' + table[i][1] };
+    }
+  }
+  return null;
+}
+
+var T_VOWEL = [['a','c',2],['d','k',3],['l','m',4],['n','o',5],['p','q',6],['r','r',7],['s','t',8],['u','z',9]];
+var T_OTHER = [['a','d',3],['e','h',4],['i','n',5],['o','q',6],['r','t',7],['u','x',8],['y','z',9]];
+var T_QU    = [['a','d',3],['e','h',4],['i','n',5],['o','q',6],['r','s',7],['t','x',8],['y','z',9]];
+var T_EXP   = [['a','d',3],['e','h',4],['i','l',5],['m','o',6],['p','s',7],['t','v',8],['w','z',9]];
+var TITLES = /^(dr|prof|professor|mr|mrs|ms|miss|chief|engr|engineer|alhaji|alhaja|hajiya|sir|dame|rev|reverend|pastor|barr|barrister|arc|elder|mallam|malam|pharm|hon|dr\.)$/i;
+var SUFFIX = /^(jr|sr|ii|iii|iv|phd|mni|fnse|ofr|cfr)$/i;
+var ARTICLES = /^(the|a|an)$/i;
+
+function letters(s){ return norm(s).replace(/[^a-z]/g, ''); }
+
+function entryWord(raw, mode){
+  var s = String(raw).trim(); if(!s) return '';
+  var toks;
+  if(mode === 'corp') return s.split(/\s+/)[0] || '';
+  if(mode === 'first'){
+    toks = s.replace(/,/g, ' ').split(/\s+/).filter(Boolean);
+    while(toks.length && TITLES.test(toks[0])) toks.shift();
+    return toks[0] || '';
+  }
+  if(s.indexOf(',') >= 0) return s.split(',')[0].trim();
+  toks = s.split(/\s+/).filter(Boolean);
+  while(toks.length > 1 && SUFFIX.test(toks[toks.length - 1])) toks.pop();
+  return toks[toks.length - 1] || '';
+}
+
+function cutterFor(word, nd){
+  var lts = letters(word);
+  if(!lts) return { cutter: '', ok: false, msg: 'No letters in entry word', steps: [] };
+  var c1 = lts.charAt(0).toUpperCase();
+  var steps = [];
+  var digits = '';
+  var ch1 = lts.charAt(0);
+  var ch2 = lts.charAt(1) || '';
+  var isVowel = /[aeiou]/.test(ch1);
+  var isS = (ch1 === 's');
+  var isQu = (ch1 === 'q' && ch2 === 'u');
+
+  if(isQu){
+    var ch3 = lts.charAt(2) || 'a';
+    var rQu = rangeDigit(ch3, T_QU);
+    if(rQu){ digits += rQu.d; steps.push({ l: ch3, r: 'Initial "qu", letter "' + ch3 + '" (' + rQu.r + ')', d: rQu.d }); }
+  } else if(isVowel){
+    if(ch2){
+      var rV = rangeDigit(ch2, T_VOWEL);
+      if(rV){ digits += rV.d; steps.push({ l: ch2, r: 'Initial vowel, second letter "' + ch2 + '" (' + rV.r + ')', d: rV.d }); }
+    }
+  } else if(isS){
+    if(ch2){
+      var rS = rangeDigit(ch2, ch2 === 'c' ? [['c','c',3]] : T_OTHER);
+      if(rS){ digits += rS.d; steps.push({ l: ch2, r: 'Initial "s", second letter "' + ch2 + '" (' + rS.r + ')', d: rS.d }); }
+    }
+  } else {
+    if(ch2){
+      var rO = rangeDigit(ch2, T_OTHER);
+      if(rO){ digits += rO.d; steps.push({ l: ch2, r: 'Initial consonant, second letter "' + ch2 + '" (' + rO.r + ')', d: rO.d }); }
+    }
+  }
+
+  var idx = (isQu ? 3 : 2);
+  while(digits.length < nd && idx < lts.length){
+    var chX = lts.charAt(idx);
+    var rE = rangeDigit(chX, T_EXP);
+    if(rE){ digits += rE.d; steps.push({ l: chX, r: 'Subsequent letter "' + chX + '" (' + rE.r + ')', d: rE.d }); }
+    idx++;
+  }
+  while(digits.length < nd) digits += '5';
+
+  return { cutter: c1 + digits.slice(0, nd), ok: true, steps: steps };
+}
+
+function validOverride(raw, expInitial){
+  var s = String(raw).trim();
+  if(!s) return { v: '', ok: true };
+  if(!/^[A-Za-z][0-9]{1,4}$/.test(s)) return { v: '', ok: false, msg: 'Manual Cutter must be 1 letter followed by 1 to 4 digits (e.g. A25).' };
+  return { v: s.charAt(0).toUpperCase() + s.slice(1), ok: true };
+}
+
+function renderCall(){
+  var c = $('callOut');
+  if(!c) return;
+
+  var notation = sel ? sel.n : '';
+  var au = $('au') ? $('au').value : '';
+  var nd = parseInt($('dg') ? $('dg').value : '2', 10);
+  var mode = $('nm') ? $('nm').value : 'auto';
+  var word = entryWord(au, mode);
+  var cr = null, cutter = '', wm = '';
+
+  var note = $('cutNote'), nh = '';
+  if(au.trim()){
+    cr = cutterFor(word, nd);
+    cutter = cr.cutter;
+    var ov = validOverride($('ov') ? $('ov').value : '', cutter.charAt(0));
+    if(!ov.ok){ nh += '<div class="notice bad">' + esc(ov.msg) + ' The generated Cutter is used.</div>'; }
+    else if(ov.v){ cutter = ov.v; nh += '<div class="notice info">Manual Cutter in use: <b>' + esc(ov.v) + '</b> (generated: ' + esc(cr.cutter) + ').</div>'; }
+
+    if(cr.ok && $('wm') && $('wm').checked){
+      var tw = ($('ti') ? $('ti').value : '').trim().split(/\s+/).filter(Boolean);
+      while(tw.length > 1 && ARTICLES.test(tw[0])) tw.shift();
+      var lt = letters(tw[0] || '');
+      if(lt) wm = lt.charAt(0);
+    }
+    nh += '<div class="hint" style="margin:6px 0 2px">Entry word used: <b dir="auto">' + esc(word || '—') + '</b></div>';
+    if(cr.steps && cr.steps.length){
+      nh += '<details' + (cr.ok ? '' : ' open') + '><summary>Show how the Cutter was worked out</summary><table class="t trace" style="margin-top:6px"><tr><th>Letter</th><th>Rule from the Cutter Table</th><th>Digit</th></tr>' + cr.steps.map(function(s){
+        return '<tr><td>' + esc(s.l) + '</td><td>' + esc(s.r) + '</td><td class="r"><b>' + esc(s.d) + '</b></td></tr>';
+      }).join('') + '</table></details>';
+    }
+  }
+  if(note) note.innerHTML = nh;
+
+  var dot = ($('dot') && $('dot').checked) ? '.' : '';
+  var fullCutter = cutter ? (dot + cutter + wm) : '';
+
+  var pfx = ($('pfx') ? $('pfx').value : '').trim();
+  var yr = ($('yr') ? $('yr').value : '').trim();
+  var cp = ($('cp') ? $('cp').value : '').trim();
+  var accNum = ($('accNum') ? $('accNum').value : '').trim();
+  var shLoc = ($('shLoc') ? $('shLoc').value : '').trim();
+
+  var lines = [];
+  if(pfx) lines.push(pfx);
+  if(notation) lines.push(notation);
+  if(fullCutter) lines.push(fullCutter);
+  if(yr) lines.push(yr);
+  if(cp) lines.push(cp);
+
+  var fullCall = lines.join(' ');
+
+  // Update call stack text if not actively editing
+  var callStackText = $('callStackText');
+  if(callStackText && document.activeElement !== callStackText){
+    callStackText.value = lines.join('\n');
+  }
+
+  if(!notation){
+    c.innerHTML = '<div class="empty" style="padding:16px;text-align:center">Select a classification topic above to generate the full spine call number.</div>';
+    return;
+  }
+
+  var h = '<div class="call-preview-card">' +
+    '<div class="call-string-row">' +
+      '<span class="call-string">' + esc(fullCall || notation) + '</span>' +
+      '<button type="button" class="btn sm" id="btnCopyCall">\uD83D\uDCCB Copy</button>' +
+    '</div>' +
+    '<div class="spine-container">' +
+      '<div class="spine-3d" id="spineLabel">' +
+        (pfx ? '<div class="spine-line pfx">' + esc(pfx) + '</div>' : '') +
+        '<div class="spine-line not">' + esc(notation) + '</div>' +
+        (fullCutter ? '<div class="spine-line cut">' + esc(fullCutter) + '</div>' : '') +
+        (yr ? '<div class="spine-line yr">' + esc(yr) + '</div>' : '') +
+        (cp ? '<div class="spine-line cp">' + esc(cp) + '</div>' : '') +
+        '<div class="spine-barcode">||| | |||| | ||| | |||</div>' +
+        (accNum ? '<div class="spine-acc">' + esc(accNum) + '</div>' : '') +
+      '</div>' +
+      '<div class="spine-meta">' +
+        '<div style="font-size:12.5px;color:var(--muted);margin-bottom:6px">Spine Specification:</div>' +
+        '<div style="font-size:13px"><b>Subject:</b> ' + esc(sel.t) + '</div>' +
+        '<div style="font-size:13px"><b>Notation:</b> ' + esc(notation) + '</div>' +
+        (cutter ? '<div style="font-size:13px"><b>Cutter:</b> ' + esc(fullCutter) + '</div>' : '') +
+        (shLoc ? '<div style="font-size:13px"><b>Shelf Bay:</b> ' + esc(shLoc) + '</div>' : '') +
+        '<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">' +
+          '<button type="button" class="btn sm alt" id="btnPrintLabel">\uD83D\uDDA8\uFE0F Print Spine Label</button>' +
+          '<button type="button" class="btn sm" id="btnLogCall">\uD83D\uDCDA Add to Catalogue Register</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+  c.innerHTML = h;
+
+  $('btnCopyCall').addEventListener('click', function(){ copy(fullCall || notation, 'Copied call number: ' + (fullCall || notation)); });
+  $('btnPrintLabel').addEventListener('click', function(){ printSpineLabel(); });
+  $('btnLogCall').addEventListener('click', function(){ addCurrentToLog(); });
+}
+
+/* ------------------------------------------------------------------ Catalogue Register (CRUD) */
+var LOG = [];
+try { LOG = JSON.parse(store('nerdc_catalogue_log_v2') || '[]'); } catch(e){ LOG = []; }
+function saveLog(){ store('nerdc_catalogue_log_v2', JSON.stringify(LOG)); }
+
+function addCurrentToLog(){
+  if(!sel){ toast('Please select a classification topic first'); return; }
+  var lines = [];
+  var pfx = ($('pfx') ? $('pfx').value : '').trim();
+  var cp = ($('cp') ? $('cp').value : '').trim();
+  var yr = ($('yr') ? $('yr').value : '').trim();
+  var acc = ($('accNum') ? $('accNum').value : '').trim();
+  var sh = ($('shLoc') ? $('shLoc').value : '').trim();
+  var au = ($('au') ? $('au').value : '').trim();
+  var ti = ($('ti') ? $('ti').value : '').trim();
+
+  var notation = sel.n;
+  var word = entryWord(au, $('nm') ? $('nm').value : 'auto');
+  var cr = cutterFor(word, parseInt($('dg') ? $('dg').value : '2', 10));
+  var cutter = cr.ok ? cr.cutter : '';
+  var dot = ($('dot') && $('dot').checked) ? '.' : '';
+  var wm = ($('wm') && $('wm').checked && ti) ? ti.replace(/^the\s+|^a\s+|^an\s+/i, '').charAt(0).toLowerCase() : '';
+  var fullCutter = cutter ? (dot + cutter + wm) : '';
+
+  if(pfx) lines.push(pfx);
+  lines.push(notation);
+  if(fullCutter) lines.push(fullCutter);
+  if(yr) lines.push(yr);
+  if(cp) lines.push(cp);
+
+  var entry = {
+    id: 'CAT-' + Date.now().toString(36) + '-' + Math.random().toString(36).substr(2, 4),
+    time: new Date().toISOString(),
+    call: lines.join(' '),
+    notation: notation,
+    subject: sel.t,
+    stage: sel.stg.text,
+    author: au || '—',
+    title: ti || '—',
+    year: yr || '—',
+    accession: acc || '—',
+    shelf: sh || 'General Stacks'
+  };
+
+  LOG.unshift(entry);
+  saveLog();
+  renderLog();
+  toast('Added entry to Catalogue Register!');
+}
+
+function renderLog(){
+  var c = $('logTableBody');
+  var badge = $('logCountBadge');
+  if(badge) badge.textContent = LOG.length;
+  if(!c) return;
+
+  if(!LOG.length){
+    c.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">No catalogue records saved yet. Assign call numbers in the Generator and click <b>Add to Catalogue Register</b>.</td></tr>';
+    return;
+  }
+
+  var h = '';
+  LOG.forEach(function(row, idx){
+    h += '<tr>' +
+      '<td><b>' + (idx + 1) + '</b></td>' +
+      '<td><span class="nb c' + row.notation.slice(0, 2) + '">' + esc(row.notation) + '</span></td>' +
+      '<td><b style="font-family:var(--mono);color:var(--maroon)">' + esc(row.call) + '</b></td>' +
+      '<td><b>' + esc(row.title) + '</b><div class="hint">' + esc(row.author) + ' (' + esc(row.year) + ')</div></td>' +
+      '<td>' + esc(row.subject) + '<div class="hint">' + esc(row.stage) + '</div></td>' +
+      '<td>' + esc(row.shelf) + '<div class="hint">ACC: ' + esc(row.accession) + '</div></td>' +
+      '<td><button type="button" class="btn sm ghost" data-del-log="' + row.id + '">\u2715 Remove</button></td>' +
+    '</tr>';
+  });
+  c.innerHTML = h;
+
+  c.querySelectorAll('[data-del-log]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var id = this.getAttribute('data-del-log');
+      LOG = LOG.filter(function(x){ return x.id !== id; });
+      saveLog();
+      renderLog();
+      toast('Record removed from catalogue');
+    });
+  });
+}
+
+function printSpineLabel(){
+  var label = $('spineLabel');
+  if(!label){ toast('No spine label generated'); return; }
+  window.print();
+}
 
 /* ------------------------------------------------------------------ Relative Index */
 var idxAzSelected = 'ALL';
+
 function buildIdxAzBar(){
   var bar = $('idxAzBar');
   if(!bar) return;
@@ -2052,785 +2756,427 @@ function renderIdxList(){
     return normTerm.indexOf(q) !== -1;
   });
 
-  $('idxStats').textContent = 'Showing ' + matches.length + ' of ' + DATA.idx.length + ' relative index entries';
-
-  if(!matches.length){
-    c.innerHTML = '<div style="padding:20px;text-align:center;color:var(--muted)">No relative index terms match the criteria.</div>';
-    return;
-  }
+  if($('idxStats')) $('idxStats').textContent = 'Showing ' + matches.length + ' of ' + DATA.idx.length + ' relative index entries';
 
   var h = '';
-  var curLtr = '';
-  matches.forEach(function(r){
-    var term = r[0] || '';
-    var parentTag = r[1] || '';
-    var notat = r[2] || '';
-    var firstLtr = term.trim().charAt(0).toUpperCase();
-    if(firstLtr !== curLtr && idxAzSelected === 'ALL' && !q){
-      curLtr = firstLtr;
-      h += '<div class="ltr">' + curLtr + '</div>';
-    }
-    var clsId = notat ? notat.slice(0, 2) : '00';
-    h += '<div class="hitem" data-notat="' + esc(notat) + '">' +
-      '<div style="flex:1;min-width:0">' +
-        '<b>' + esc(term) + '</b>' +
-        (parentTag ? ' <span style="font-size:12px;color:var(--muted)">[' + esc(parentTag) + ']</span>' : '') +
+  matches.slice(0, 150).forEach(function(r){
+    var term = r[0];
+    var subNote = r[1];
+    var notation = r[2];
+    h += '<div class="idx-row">' +
+      '<div class="idx-term">' + esc(term) + (subNote ? '<span class="idx-sub"> ' + esc(subNote) + '</span>' : '') + '</div>' +
+      '<div class="idx-not"><button type="button" class="nb c' + notation.slice(0, 2) + '" data-n="' + esc(notation) + '">' + esc(notation) + '</button></div>' +
+    '</div>';
+  });
+  if(matches.length > 150){
+    h += '<div class="hint" style="text-align:center;padding:10px">...showing first 150 of ' + matches.length + ' matching index entries. Type more letters to filter.</div>';
+  }
+  c.innerHTML = h;
+
+  c.querySelectorAll('[data-n]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var n = this.getAttribute('data-n');
+      selectEntry(n, { goto: true });
+    });
+  });
+}
+
+/* ------------------------------------------------------------------ Subject Headings */
+function renderHList(){
+  var c = $('headList');
+  if(!c) return;
+  var q = norm($('headQ').value);
+  var matches = H.filter(function(h){
+    if(!q) return true;
+    return norm(h.h + ' ' + h.n + ' ' + (h.sn || '') + ' ' + (h.uf ? h.uf.join(' ') : '')).indexOf(q) !== -1;
+  });
+
+  var h = '';
+  matches.forEach(function(item){
+    var rtList = parseRefs(item.rt);
+    var ufList = item.uf || [];
+    h += '<div class="card" style="margin-bottom:14px" data-n="' + esc(item.n) + '">' +
+      '<div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px">' +
+        '<div style="font-size:16px;font-weight:700;color:var(--navy)">' + esc(item.h) + '</div>' +
+        '<button type="button" class="nb c' + item.n.slice(0, 2) + '" data-n="' + esc(item.n) + '">' + esc(item.n) + '</button>' +
       '</div>' +
-      '<div style="display:flex;align-items:center;gap:8px">' +
-        (notat ? '<span class="nb c' + clsId + '">' + esc(notat) + '</span>' : '') +
-        '<button type="button" class="btn sm" data-use-notat="' + esc(notat) + '">Select in Generator &rarr;</button>' +
+      (item.sn ? '<div style="margin-top:6px;font-size:13.5px;color:var(--ink-d);line-height:1.45">' + esc(item.sn) + '</div>' : '') +
+      (ufList.length ? '<div class="hint" style="margin-top:6px"><b>Used For (UF):</b> ' + esc(ufList.join('; ')) + '</div>' : '') +
+      (rtList.length ? '<div class="hint" style="margin-top:4px"><b>Related Terms (RT):</b> ' + rtList.map(function(r){ return esc(r.label) + ' [' + r.n + ']'; }).join('; ') + '</div>' : '') +
+      '<div style="margin-top:8px"><button type="button" class="btn sm ghost" data-n="' + esc(item.n) + '">Select Heading Notation \u2192</button></div>' +
+    '</div>';
+  });
+  c.innerHTML = h;
+
+  c.querySelectorAll('[data-n]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var n = this.getAttribute('data-n');
+      selectEntry(n, { goto: true });
+    });
+  });
+}
+
+/* ------------------------------------------------------------------ Browse Scheme Tree */
+function buildTree(){
+  var c = $('tree');
+  if(!c) return;
+  var h = '';
+  Object.keys(CLS).forEach(function(clsId){
+    h += '<div class="tree-node tree-cls">' +
+      '<div class="tree-header" data-toggle-tree="' + clsId + '">' +
+        '<span class="tree-arrow">\u25BC</span> ' +
+        '<span class="nb c' + clsId + '">' + clsId + '</span> ' +
+        '<b>' + esc(CLS[clsId]) + '</b>' +
+      '</div>' +
+      '<div class="tree-children" id="tree-kids-' + clsId + '">' +
+        renderTreeSubjects(clsId) +
       '</div>' +
     '</div>';
   });
-
   c.innerHTML = h;
 
-  c.querySelectorAll('[data-use-notat]').forEach(function(btn){
-    btn.addEventListener('click', function(e){
-      e.stopPropagation();
-      var notat = this.getAttribute('data-use-notat');
-      if(notat && byN[notat]){
-        select(byN[notat]);
-        setTab('gen');
-      } else if(notat) {
-        // Resolve direct notation
-        resolveDirectNotation(notat);
-        setTab('gen');
+  c.querySelectorAll('[data-toggle-tree]').forEach(function(hdr){
+    hdr.addEventListener('click', function(){
+      var id = this.getAttribute('data-toggle-tree');
+      var kidsEl = $('tree-kids-' + id);
+      if(kidsEl){
+        var isHidden = kidsEl.hidden;
+        kidsEl.hidden = !isHidden;
+        this.querySelector('.tree-arrow').textContent = isHidden ? '\u25BC' : '\u25B6';
       }
     });
   });
-}
 
-/* ------------------------------------------------------------------ search & navigation */
-function searchEntries(q, stage, subj){
-  q = norm(q);
-  if(!q) return [];
-  var words = q.split(' ');
-  var exactN = byN[q.toUpperCase()] || byN[q];
-  var results = [];
-  if(exactN) results.push({ e: exactN, score: 9999 });
-
-  E.forEach(function(e){
-    if(exactN && e === exactN) return;
-    if(stage && e.stg.tag !== stage) return;
-    if(subj && e.sub !== subj) return;
-
-    var score = 0;
-    if(e.nt === q) score += 2000;
-    else if(e.nt.indexOf(q) === 0) score += 1200;
-    else if(e.nt.indexOf(q) !== -1) score += 600;
-
-    var matchedAll = true;
-    for(var i = 0; i < words.length; i++){
-      if(e.nt.indexOf(words[i]) === -1){ matchedAll = false; break; }
-    }
-    if(matchedAll) score += 300;
-
-    if(score > 0){
-      score += (e.lv * 20);
-      if(e.isCustom) score += 100;
-      results.push({ e: e, score: score });
-    }
-  });
-
-  results.sort(function(a, b){ return b.score - a.score; });
-  return results.slice(0, 50).map(function(r){ return r.e; });
-}
-
-function runSearch(){
-  var q = $('q').value;
-  var stg = $('fStage').value;
-  var sub = $('fSubj').value;
-  var results = searchEntries(q, stg, sub);
-  renderResults(results);
-}
-
-function renderResults(list){
-  var c = $('results');
-  if(!c) return;
-  if(!$('q').value.trim()){
-    c.innerHTML = '<div style="text-align:center;padding:24px 12px;color:var(--muted)">' +
-      'Search the 3,600+ NERDC curriculum topics by keyword, subject, or notation code above.<br>' +
-      '<span class="hint">Or click any quick presentation topic chip above for instant demonstration.</span>' +
-      '</div>';
-    return;
-  }
-  if(!list.length){
-    c.innerHTML = '<div style="text-align:center;padding:24px 12px;color:var(--muted)">No curriculum topics matched your search.<br><span class="hint">Try broader terms or switch to <b>Direct Notation</b> mode to input custom codes.</span></div>';
-    return;
-  }
-
-  var h = '<div style="font-size:12.5px;color:var(--muted);margin-bottom:8px">Found <b>' + list.length + '</b> curriculum topics:</div>';
-  list.forEach(function(e){
-    var clsBadge = '<span class="nb c' + e.cls + '">' + esc(e.n) + '</span>';
-    var stgBadge = '<span class="meta-tag ' + (e.stg.tag === 'trade' ? 'green' : e.stg.tag === 'sec' ? 'purple' : 'amber') + '">' + esc(e.stg.text) + '</span>';
-    var customBadge = e.isCustom ? '<span class="meta-tag amber">Custom</span>' : '';
-    
-    h += '<div class="res' + (sel && sel.n === e.n ? ' on' : '') + '" data-n="' + esc(e.n) + '">' +
-      '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px">' +
-        '<div>' + clsBadge + ' <b>' + esc(e.t) + '</b> ' + customBadge + '</div>' +
-        stgBadge +
-      '</div>' +
-      '<div class="bc" style="margin-top:4px">' + esc(breadcrumb(e)) + '</div>' +
-    '</div>';
-  });
-  c.innerHTML = h;
-
-  c.querySelectorAll('.res').forEach(function(el){
-    el.addEventListener('click', function(){
+  c.querySelectorAll('[data-n]').forEach(function(btn){
+    btn.addEventListener('click', function(ev){
+      ev.stopPropagation();
       var n = this.getAttribute('data-n');
-      if(byN[n]) select(byN[n]);
+      selectEntry(n, { goto: true });
     });
   });
 }
 
-function breadcrumb(e){
-  var parts = [];
-  var cur = e;
-  while(cur){
-    parts.unshift(cur.t);
-    cur = cur.p ? byN[cur.p] : null;
-  }
-  return parts.join(' \u2192 ');
-}
-
-function select(e){
-  sel = e;
-  renderSel();
-  renderCall();
-  // Highlight in results
-  document.querySelectorAll('#results .res').forEach(function(r){
-    if(r.getAttribute('data-n') === e.n) r.classList.add('on');
-    else r.classList.remove('on');
-  });
-}
-
-function renderSel(){
-  var c = $('selCard');
-  if(!c) return;
-  if(!sel){
-    c.innerHTML = '<div style="text-align:center;padding:20px;color:var(--muted)">No curriculum topic selected yet.<br><span class="hint">Select a topic from search or enter notation in Direct mode.</span></div>';
-    return;
-  }
-  var h = '<h2><span class="step">\u2713</span> Selected Classification Topic</h2>' +
-    '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">' +
-      '<span class="nb c' + sel.cls + '" style="font-size:16px;padding:4px 10px">' + esc(sel.n) + '</span>' +
-      '<span class="meta-tag ' + (sel.stg.tag === 'trade' ? 'green' : sel.stg.tag === 'sec' ? 'purple' : 'amber') + '">' + esc(sel.stg.text) + '</span>' +
-      (sel.isCustom ? '<span class="meta-tag amber">Custom Topic</span>' : '') +
-    '</div>' +
-    '<div style="font-size:17px;font-weight:700;color:var(--maroon);margin-bottom:6px">' + esc(sel.t) + '</div>' +
-    '<div class="bc">' + esc(breadcrumb(sel)) + '</div>' +
-    (sel.notes ? '<div class="hint" style="margin-top:6px;background:#f1f5f9;padding:6px 10px;border-radius:6px"><b>Notes:</b> ' + esc(sel.notes) + '</div>' : '') +
-    '<div class="row" style="margin-top:12px;gap:8px">' +
-      '<button class="btn sm alt" id="btnCopyNotation" type="button">\uD83D\uDCCB Copy Notation (' + esc(sel.n) + ')</button>' +
-      '<button class="btn sm ghost" id="btnClearSelection" type="button">Change Topic</button>' +
-    '</div>';
-  c.innerHTML = h;
-
-  $('btnCopyNotation').addEventListener('click', function(){ copy(sel.n, 'Copied notation ' + sel.n); });
-  $('btnClearSelection').addEventListener('click', function(){ sel = null; renderSel(); renderCall(); });
-}
-
-/* ------------------------------------------------------------------ direct notation resolver */
-function resolveDirectNotation(inputCode){
-  inputCode = String(inputCode || '').trim();
-  if(!inputCode){ toast('Please enter a classification notation'); return; }
-
-  // Check if exists in byN
-  if(byN[inputCode]){
-    select(byN[inputCode]);
-    toast('Resolved statutory notation: ' + inputCode);
-    updateDirectBreakdown(byN[inputCode]);
-    return;
-  }
-
-  // Construct dynamic entry
-  var cls = inputCode.slice(0, 2);
-  var clsTitle = CLS[cls] || 'Special / Extension Field';
-  var sub = inputCode.length >= 4 ? inputCode.slice(0, 4) : '';
-  var subTitle = SUBJ_MAP[sub] || 'Custom Subject (' + sub + ')';
-  var stg = stageOf(inputCode);
-  var lvName = LV[levelOf(inputCode)] || 'Custom Subdivision';
-
-  var syntheticEntry = {
-    n: inputCode,
-    t: subTitle + ' \u2014 ' + inputCode,
-    cls: cls,
-    sub: sub,
-    stg: stg,
-    lv: levelOf(inputCode),
-    p: parentOf(inputCode) || sub,
-    isCustom: true,
-    notes: 'Custom direct notation entry'
-  };
-
-  select(syntheticEntry);
-  updateDirectBreakdown(syntheticEntry);
-  toast('Resolved direct notation: ' + inputCode);
-}
-
-function updateDirectBreakdown(e){
-  var b = $('directBreakdown');
-  if(!b) return;
-  b.hidden = false;
-  b.innerHTML = '<b>Notation Hierarchy Breakdown:</b>' +
-    '<div class="breakdown-row">' +
-      '<div><b>Field:</b> <span class="nb c' + e.cls + '">' + esc(e.cls) + '</span> ' + esc(CLS[e.cls] || 'Custom') + '</div>' +
-      (e.sub ? '<div><b>Subject:</b> <code>' + esc(e.sub) + '</code> ' + esc(SUBJ_MAP[e.sub] || '') + '</div>' : '') +
-      '<div><b>Level:</b> ' + esc(LV[e.lv] || 'Level ' + e.lv) + '</div>' +
-      '<div><b>Stage:</b> <span class="meta-tag ' + (e.stg.tag === 'trade' ? 'green' : e.stg.tag === 'sec' ? 'purple' : 'amber') + '">' + esc(e.stg.text) + '</span></div>' +
-    '</div>';
-}
-
-/* ------------------------------------------------------------------ Cutter Generator */
-function lcBasicCutter(word){
-  word = String(word||'').toUpperCase().replace(/[^A-Z]/g, '');
-  if(!word) return { cutter: '', ok: false, steps: [], warn: ['Empty word'] };
-  var first = word.charAt(0);
-  var rest = word.slice(1);
-  var d1 = '', d2 = '', rule = '';
-
-  // LC Two-Number Table Rules
-  if(first === 'S'){
-    if(/^[A-C]/.test(rest)){ d1 = '2'; rule = 'S followed by a-c: 2'; }
-    else if(/^[D-M]/.test(rest)){ d1 = '3'; rule = 'S followed by d-m: 3'; }
-    else if(/^[N-P]/.test(rest)){ d1 = '4'; rule = 'S followed by n-p: 4'; }
-    else if(/^[Q-T]/.test(rest)){ d1 = '5'; rule = 'S followed by q-t: 5'; }
-    else if(/^[U-Z]/.test(rest)){ d1 = '6'; rule = 'S followed by u-z: 6'; }
-    else { d1 = '4'; rule = 'S default: 4'; }
-  } else if(/[AEIOU]/.test(first)){
-    if(/^[B-D]/.test(rest)){ d1 = '2'; rule = 'Vowel followed by b-d: 2'; }
-    else if(/^[E-L]/.test(rest)){ d1 = '3'; rule = 'Vowel followed by e-l: 3'; }
-    else if(/^[M-P]/.test(rest)){ d1 = '4'; rule = 'Vowel followed by m-p: 4'; }
-    else if(/^[Q-S]/.test(rest)){ d1 = '5'; rule = 'Vowel followed by q-s: 5'; }
-    else if(/^[T-V]/.test(rest)){ d1 = '6'; rule = 'Vowel followed by t-v: 6'; }
-    else if(/^[W-Z]/.test(rest)){ d1 = '7'; rule = 'Vowel followed by w-z: 7'; }
-    else { d1 = '4'; rule = 'Vowel default: 4'; }
-  } else {
-    // Consonants other than S
-    if(/^[A-C]/.test(rest)){ d1 = '3'; rule = 'Consonant followed by a-c: 3'; }
-    else if(/^[D-H]/.test(rest)){ d1 = '4'; rule = 'Consonant followed by d-h: 4'; }
-    else if(/^[I-L]/.test(rest)){ d1 = '5'; rule = 'Consonant followed by i-l: 5'; }
-    else if(/^[M-P]/.test(rest)){ d1 = '6'; rule = 'Consonant followed by m-p: 6'; }
-    else if(/^[Q-T]/.test(rest)){ d1 = '7'; rule = 'Consonant followed by q-t: 7'; }
-    else if(/^[U-Z]/.test(rest)){ d1 = '8'; rule = 'Consonant followed by u-z: 8'; }
-    else { d1 = '5'; rule = 'Consonant default: 5'; }
-  }
-
-  // Second digit expansion
-  var secondLetter = rest.length > 1 ? rest.charAt(1) : (rest.length === 1 ? rest.charAt(0) : 'E');
-  if(/^[A-D]/.test(secondLetter)) d2 = '3';
-  else if(/^[E-H]/.test(secondLetter)) d2 = '4';
-  else if(/^[I-L]/.test(secondLetter)) d2 = '5';
-  else if(/^[M-P]/.test(secondLetter)) d2 = '6';
-  else if(/^[Q-T]/.test(secondLetter)) d2 = '7';
-  else d2 = '8';
-
-  var digitsChoice = $('dg') ? $('dg').value : '2';
-  var cutNum = d1;
-  if(digitsChoice === '2') cutNum = d1 + d2;
-  else if(digitsChoice === '3') cutNum = d1 + d2 + '4';
-  else if(digitsChoice === '4') cutNum = d1 + d2 + '45';
-
-  return {
-    cutter: first + cutNum,
-    ok: true,
-    steps: [
-      { l: first, r: 'Initial letter', d: first },
-      { l: rest.charAt(0) || '', r: rule, d: d1 },
-      { l: secondLetter, r: 'Third letter expansion', d: d2 }
-    ],
-    warn: []
-  };
-}
-
-function extractSurname(raw){
-  raw = String(raw||'').trim();
-  if(!raw) return '';
-  // Check comma: "Achebe, Chinua"
-  if(raw.indexOf(',') !== -1){
-    return raw.split(',')[0].trim();
-  }
-  // Strip honorifics
-  var cleaned = raw.replace(/\b(Chief|Alhaji|Dr|Prof|Engr|Pastor|Rev|Sir|Lady|Mrs|Mr|Miss|Mallam|Oba|Emir)\b\.?/gi, '').trim();
-  var parts = cleaned.split(/\s+/);
-  var order = $('nm') ? $('nm').value : 'auto';
-  if(order === 'first') return parts[0];
-  if(order === 'corp') return parts[0];
-  return parts[parts.length - 1]; // last word as surname
-}
-
-/* ------------------------------------------------------------------ Call Number & Spine Assembly */
-var manualCallOverride = null;
-
-function renderCall(){
-  var c = $('callOut');
-  if(!c) return;
-
-  var notation = sel ? sel.n : '';
-  var authorRaw = $('au') ? $('au').value.trim() : '';
-  var titleRaw = $('ti') ? $('ti').value.trim() : '';
-  var yearRaw = $('yr') ? $('yr').value.trim() : '';
-  var pfx = ($('pfx') ? $('pfx').value : '').trim();
-  var cp = ($('cp') ? $('cp').value : '').trim();
-  var accNum = ($('accNum') ? $('accNum').value : '').trim();
-  var shLoc = ($('shLoc') ? $('shLoc').value : '').trim();
-  var manualCutter = ($('ov') ? $('ov').value : '').trim();
-
-  var cutter = '';
-  if(manualCutter){
-    cutter = manualCutter;
-    if($('cutNote')) $('cutNote').innerHTML = '<span class="hint">Using manual Cutter override: <b>' + esc(cutter) + '</b></span>';
-  } else if(authorRaw){
-    var surname = extractSurname(authorRaw);
-    var cutRes = lcBasicCutter(surname);
-    if(cutRes.ok){
-      var dot = ($('dot') && $('dot').checked) ? '.' : '';
-      var wm = ($('wm') && $('wm').checked && titleRaw) ? titleRaw.replace(/^the\s+|^a\s+|^an\s+/i, '').charAt(0).toLowerCase() : '';
-      cutter = dot + cutRes.cutter + wm;
-      if($('cutNote')) $('cutNote').innerHTML = '<span class="hint">Surname detected: <b>' + esc(surname) + '</b> \u2192 LC Cutter: <b>' + esc(cutter) + '</b></span>';
-    }
-  } else {
-    if($('cutNote')) $('cutNote').innerHTML = '';
-  }
-
-  // Assemble standard lines
-  var lines = [];
-  if(pfx) lines.push(pfx);
-  if(notation) lines.push(notation);
-  if(cutter) lines.push(cutter);
-  if(yearRaw) lines.push(yearRaw);
-  if(cp) lines.push(cp);
-
-  // If manual override stack active
-  if(manualCallOverride !== null){
-    lines = manualCallOverride.split('\n').map(function(s){ return s.trim(); }).filter(Boolean);
-  }
-
-  var stack = lines.join('\n');
-  var oneLine = lines.join(' ');
-
-  curCall = {
-    lines: lines,
-    stack: stack,
-    one: oneLine,
-    notation: notation,
-    cutter: cutter,
-    author: authorRaw,
-    title: titleRaw,
-    year: yearRaw,
-    prefix: pfx,
-    copy: cp,
-    accessionNumber: accNum,
-    shelfLocation: shLoc,
-    subject: sel ? sel.t : '',
-    cls: sel ? sel.cls : '00'
-  };
-
-  // Sync textarea if open
-  if($('callStackText') && manualCallOverride === null){
-    $('callStackText').value = stack;
-  }
-
-  var clsColor = sel ? ('c' + sel.cls) : 'c00';
-  var barcodeNum = accNum || (yearRaw ? (yearRaw + '-001') : 'NERDC-2026');
-
-  var h = '<div class="res" style="cursor:default;margin-bottom:12px">' +
-    '<div style="font-size:12px;color:var(--muted)">One-Line Library Call Number:</div>' +
-    '<div class="cn-line" style="font-size:18px;font-weight:800;color:var(--maroon)">' + (oneLine ? esc(oneLine) : '— Awaiting Selection & Author —') + '</div>' +
-    '</div>' +
-    '<div class="two">' +
-      '<div>' +
-        '<div class="spine-preview-wrap">' +
-          '<div class="spine-book-3d">' +
-            '<div class="spine-color-strip ' + clsColor + '"></div>' +
-            '<div class="spine-call-stack">' +
-              lines.map(function(l){ return '<div class="spine-line">' + esc(l) + '</div>'; }).join('') +
-            '</div>' +
-            '<div class="spine-barcode"></div>' +
-            '<div class="spine-footer">NERDC \u2022 ' + esc(barcodeNum) + '</div>' +
-          '</div>' +
-        '</div>' +
-      '</div>' +
-      '<div style="display:flex;flex-direction:column;gap:8px;justify-content:center">' +
-        '<button class="btn" id="btnAddToLog" type="button"' + (notation ? '' : ' disabled') + '>+ Add to Catalogue Register</button>' +
-        '<button class="btn alt" id="btnPrintSingleSpine" type="button"' + (lines.length ? '' : ' disabled') + '>\uD83D\uDDA8\uFE0F Print Spine Label</button>' +
-        '<button class="btn ghost" id="btnCopyCallNumber" type="button"' + (oneLine ? '' : ' disabled') + '>\uD83D\uDCCB Copy Call Number</button>' +
+function renderTreeSubjects(clsId){
+  var subjects = E.filter(function(e){ return e.lv === 2 && e.cls === clsId; });
+  var h = '';
+  subjects.forEach(function(sub){
+    var childTopics = kids[sub.n] || [];
+    h += '<div class="tree-node tree-sub" style="margin-left:18px;margin-top:4px">' +
+      '<div class="tree-header">' +
+        '<span class="nb c' + clsId + '" data-n="' + esc(sub.n) + '">' + esc(sub.n) + '</span> ' +
+        '<span data-n="' + esc(sub.n) + '" style="cursor:pointer;font-weight:600">' + esc(sub.t) + '</span>' +
+        ' <span class="hint">(' + childTopics.length + ' themes/topics)</span>' +
       '</div>' +
     '</div>';
-
-  c.innerHTML = h;
-
-  $('btnAddToLog').addEventListener('click', function(){
-    if(!curCall || !curCall.notation) return;
-    addBookRecord({
-      title: curCall.title || 'Untitled Curriculum Resource',
-      author: curCall.author || '',
-      notation: curCall.notation,
-      subject: curCall.subject,
-      cutter: curCall.cutter,
-      year: curCall.year,
-      prefix: curCall.prefix,
-      copy: curCall.copy,
-      accessionNumber: curCall.accessionNumber || ('ACC/' + (new Date().getFullYear()) + '/' + String(LOG.length + 1).padStart(3, '0')),
-      shelfLocation: curCall.shelfLocation || 'General Stacks',
-      status: 'Available',
-      stack: curCall.stack,
-      date: new Date().toISOString().substring(0, 10)
-    });
-    toast('Added to Catalogue Register (' + LOG.length + ' total books)');
-    setTab('log');
   });
-
-  $('btnPrintSingleSpine').addEventListener('click', printSingleSpineLabel);
-  $('btnCopyCallNumber').addEventListener('click', function(){ copy(curCall.one, 'Copied call number: ' + curCall.one); });
+  return h;
 }
 
-/* ------------------------------------------------------------------ Catalogue & Accession Register */
-var LOG = [];
-try { LOG = JSON.parse(store('nerdc_cn_log') || '[]'); } catch(e){ LOG = []; }
-function saveLog(){ store('nerdc_cn_log', JSON.stringify(LOG)); }
-
-function addBookRecord(rec){
-  rec.id = 'res-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
-  if(!rec.status) rec.status = 'Available';
-  if(!rec.date) rec.date = new Date().toISOString().substring(0, 10);
-  LOG.unshift(rec);
-  saveLog();
-  renderLog();
-}
-
-function updateBookRecord(index, updated){
-  if(index >= 0 && index < LOG.length){
-    LOG[index] = Object.assign(LOG[index], updated);
-    saveLog();
-    renderLog();
-    toast('Catalogue record updated');
-  }
-}
-
-function deleteBookRecord(index){
-  if(index >= 0 && index < LOG.length){
-    var title = LOG[index].title || 'this book';
-    if(confirm('Are you sure you want to delete "' + title + '" from the catalogue?')){
-      LOG.splice(index, 1);
-      saveLog();
-      renderLog();
-      toast('Record removed from catalogue');
-    }
-  }
-}
-
-function duplicateBookRecord(index){
-  if(index >= 0 && index < LOG.length){
-    var orig = LOG[index];
-    var dup = JSON.parse(JSON.stringify(orig));
-    dup.id = 'res-' + Date.now();
-    dup.date = new Date().toISOString().substring(0, 10);
-    // Increment copy
-    var curCopy = dup.copy || 'c.1';
-    var m = curCopy.match(/c\.?(\d+)/i);
-    var nextNum = m ? (parseInt(m[1], 10) + 1) : 2;
-    dup.copy = 'c.' + nextNum;
-    dup.accessionNumber = (orig.accessionNumber || 'ACC') + '-C' + nextNum;
-    
-    // Update stack with new copy
-    var lines = (dup.stack || '').split('\n').filter(function(l){ return !/^c\.\d+/i.test(l); });
-    lines.push(dup.copy);
-    dup.stack = lines.join('\n');
-
-    LOG.splice(index + 1, 0, dup);
-    saveLog();
-    renderLog();
-    toast('Duplicated as copy ' + dup.copy);
-  }
-}
-
-function cycleBookStatus(index){
-  if(index >= 0 && index < LOG.length){
-    var states = ['Available', 'On Loan', 'Reference', 'Missing'];
-    var current = LOG[index].status || 'Available';
-    var nextIdx = (states.indexOf(current) + 1) % states.length;
-    LOG[index].status = states[nextIdx];
-    saveLog();
-    renderLog();
-    toast('Status changed to: ' + states[nextIdx]);
-  }
-}
-
-function renderLog(){
-  if($('logCnt')) $('logCnt').textContent = LOG.length;
-  if($('catCountHint')) $('catCountHint').textContent = LOG.length + ' catalogued items';
-
-  var c = $('logTbl');
+/* ------------------------------------------------------------------ Browse Scheme Diagrams */
+function buildFigs(){
+  var c = $('figs');
   if(!c) return;
-
-  if(!LOG.length){
-    c.innerHTML = '<div style="text-align:center;padding:36px 16px;color:var(--muted)">' +
-      'No books or media catalogued yet.<br>' +
-      '<span class="hint">Use <b>+ Add to Catalogue Register</b> in the Generator or click <b>➕ New Resource</b> above.</span>' +
-      '</div>';
+  if(!IMG.rel || !IMG.rel.length){
+    c.innerHTML = '<div class="hint" style="padding:16px;text-align:center">No scheme relationship diagrams attached.</div>';
     return;
   }
-
-  var q = norm($('catSearch') ? $('catSearch').value : '');
-  var statusFilter = $('catStatusFilter') ? $('catStatusFilter').value : '';
-
-  var filtered = LOG.filter(function(r){
-    if(statusFilter && r.status !== statusFilter) return false;
-    if(!q) return true;
-    var hay = norm((r.title || '') + ' ' + (r.author || '') + ' ' + (r.stack || '') + ' ' + (r.accessionNumber || '') + ' ' + (r.shelfLocation || '') + ' ' + (r.subject || ''));
-    return hay.indexOf(q) !== -1;
+  var h = '';
+  IMG.rel.forEach(function(d, i){
+    h += '<div class="fig-card">' +
+      '<div class="fig-cap">Diagram ' + (i + 1) + ' &mdash; Scheme Relationship Matrix</div>' +
+      '<img alt="NERDC Scheme Diagram" src="data:image/png;base64,' + d + '">' +
+    '</div>';
   });
+  c.innerHTML = h;
+}
 
-  if(!filtered.length){
-    c.innerHTML = '<div style="text-align:center;padding:24px 16px;color:var(--muted)">No catalogue records match your search filter.</div>';
+/* ------------------------------------------------------------------ Cutter Table */
+function buildCutTbl(){
+  var t1 = $('cutT1'), t2 = $('cutT2'), t3 = $('cutT3'), t4 = $('cutT4');
+  if(!t1 || !t2 || !t3 || !t4) return;
+  function makeRows(tbl){
+    return tbl.map(function(r){
+      return '<tr><td><b>' + esc(r[0] === r[1] ? r[0] : r[0] + ' \u2013 ' + r[1]) + '</b></td><td>' + r[2] + '</td></tr>';
+    }).join('');
+  }
+  t1.innerHTML = makeRows(T_VOWEL);
+  t2.innerHTML = makeRows(T_OTHER);
+  t3.innerHTML = makeRows(T_QU);
+  t4.innerHTML = makeRows(T_EXP);
+}
+
+/* ------------------------------------------------------------------ Custom Topics Management */
+function renderCustomTopicsList(){
+  var c = $('customTopicsList');
+  if(!c) return;
+  if(!CUSTOM_TOPICS.length){
+    c.innerHTML = '<div style="padding:16px;text-align:center;color:var(--muted)">No custom topics created yet. Use the form above to add emerging subjects.</div>';
     return;
   }
-
-  var h = '<table class="t"><thead><tr>' +
-    '<th>#</th>' +
-    '<th>Accession No</th>' +
-    '<th>Spine Call Number</th>' +
-    '<th>Subject / Topic</th>' +
-    '<th>Author &amp; Title</th>' +
-    '<th>Shelf</th>' +
-    '<th>Status</th>' +
-    '<th class="noprint">Actions</th>' +
-    '</tr></thead><tbody>';
-
-  filtered.forEach(function(r, i){
-    var origIdx = LOG.indexOf(r);
-    var clsId = r.notation ? r.notation.slice(0, 2) : '00';
-    var statusClass = r.status === 'On Loan' ? 'status-loan' : r.status === 'Reference' ? 'status-ref' : r.status === 'Missing' ? 'status-lost' : 'status-avail';
-    
-    h += '<tr>' +
-      '<td>' + (i + 1) + '</td>' +
-      '<td><span class="meta-tag">' + esc(r.accessionNumber || '—') + '</span></td>' +
-      '<td><b style="font-family:var(--mono);color:var(--maroon);white-space:pre-line;line-height:1.25">' + esc(r.stack) + '</b></td>' +
-      '<td><span class="nb c' + clsId + '">' + esc(r.notation || '00') + '</span> <span style="font-size:12.5px" dir="auto">' + esc(r.subject || '—') + '</span></td>' +
-      '<td><b>' + esc(r.title || 'Untitled') + '</b><br><span style="font-size:12px;color:var(--muted)">' + esc(r.author || '—') + ' (' + esc(r.year || 'n.d.') + ')</span></td>' +
-      '<td><span style="font-size:12px">' + esc(r.shelfLocation || '—') + '</span></td>' +
-      '<td><button type="button" class="badge-status ' + statusClass + '" data-cycle-status="' + origIdx + '" title="Click to change circulation status">' + esc(r.status || 'Available') + '</button></td>' +
-      '<td class="noprint">' +
-        '<div class="cat-actions">' +
-          '<button type="button" class="btn sm ghost" data-edit-book="' + origIdx + '">✏️ Edit</button>' +
-          '<button type="button" class="btn sm ghost" data-dup-book="' + origIdx + '">📋 Copy</button>' +
-          '<button type="button" class="btn sm alt" data-print-book="' + origIdx + '">\uD83D\uDDA8\uFE0F</button>' +
-          '<button type="button" class="btn sm ghost" style="color:#ba1a1a" data-del-book="' + origIdx + '">&times;</button>' +
+  var h = '';
+  CUSTOM_TOPICS.forEach(function(ct){
+    h += '<div class="card" style="margin-bottom:10px">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">' +
+        '<div>' +
+          '<span class="nb c' + ct.n.slice(0, 2) + '">' + esc(ct.n) + '</span> ' +
+          '<b>' + esc(ct.t) + '</b>' +
         '</div>' +
-      '</td>' +
-    '</tr>';
+        '<button type="button" class="btn sm ghost" data-del-custom="' + ct.id + '">\u2715 Delete</button>' +
+      '</div>' +
+      (ct.notes ? '<div class="hint" style="margin-top:6px"><b>Notes:</b> ' + esc(ct.notes) + '</div>' : '') +
+      '<div style="margin-top:6px"><button type="button" class="btn sm" data-n="' + esc(ct.n) + '">Select &amp; Classify \u2192</button></div>' +
+    '</div>';
   });
-
-  h += '</tbody></table>';
   c.innerHTML = h;
 
-  // Event bindings
-  c.querySelectorAll('[data-cycle-status]').forEach(function(btn){
-    btn.addEventListener('click', function(){ cycleBookStatus(+this.getAttribute('data-cycle-status')); });
-  });
-  c.querySelectorAll('[data-edit-book]').forEach(function(btn){
-    btn.addEventListener('click', function(){ openEditBookModal(+this.getAttribute('data-edit-book')); });
-  });
-  c.querySelectorAll('[data-dup-book]').forEach(function(btn){
-    btn.addEventListener('click', function(){ duplicateBookRecord(+this.getAttribute('data-dup-book')); });
-  });
-  c.querySelectorAll('[data-print-book]').forEach(function(btn){
+  c.querySelectorAll('[data-del-custom]').forEach(function(btn){
     btn.addEventListener('click', function(){
-      var item = LOG[+this.getAttribute('data-print-book')];
-      if(item) printSpineForRecord(item);
+      var id = this.getAttribute('data-del-custom');
+      if(confirm('Are you sure you want to delete this custom topic?')){
+        CUSTOM_TOPICS = CUSTOM_TOPICS.filter(function(x){ return x.id !== id; });
+        saveCustomTopics();
+        rebuildSchemeData();
+        renderCustomTopicsList();
+        buildTree();
+        renderIdxList();
+        toast('Custom topic deleted');
+      }
     });
   });
-  c.querySelectorAll('[data-del-book]').forEach(function(btn){
-    btn.addEventListener('click', function(){ deleteBookRecord(+this.getAttribute('data-del-book')); });
+
+  c.querySelectorAll('[data-n]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var n = this.getAttribute('data-n');
+      selectEntry(n, { goto: true });
+    });
   });
 }
 
-function openEditBookModal(index){
-  var isNew = (index === -1);
-  var rec = isNew ? {} : LOG[index];
-  
-  $('modalBookTitle').textContent = isNew ? '➕ Add New Book to Catalogue' : '✏️ Edit Catalogue Record';
-  $('bookRecordIndex').value = index;
+function handleAddCustomTopic(ev){
+  ev.preventDefault();
+  var parentSub = $('inpParentSubject').value;
+  var notation = $('inpCustomNotation').value.trim();
+  var title = $('inpCustomTitle').value.trim();
+  var notes = $('inpCustomNotes').value.trim();
 
-  $('mbTitle').value = rec.title || '';
-  $('mbAuthor').value = rec.author || '';
-  $('mbNotation').value = rec.notation || (sel ? sel.n : '');
-  $('mbSubject').value = rec.subject || (sel ? sel.t : '');
-  $('mbCutter').value = rec.cutter || '';
-  $('mbYear').value = rec.year || (new Date().getFullYear());
-  $('mbPrefix').value = rec.prefix || '';
-  $('mbCopy').value = rec.copy || 'c.1';
-  $('mbAccNum').value = rec.accessionNumber || ('ACC/' + (new Date().getFullYear()) + '/' + String(LOG.length + 1).padStart(3, '0'));
-  $('mbShelf').value = rec.shelfLocation || 'General Stacks';
-  $('mbStatus').value = rec.status || 'Available';
-  $('mbIsbn').value = rec.isbn || '';
-  $('mbStack').value = rec.stack || (curCall ? curCall.stack : '');
+  if(!notation || !title){
+    alert('Please enter both notation and title for the custom topic.');
+    return;
+  }
 
-  $('modalBook').hidden = false;
-}
-
-function closeBookModal(){
-  $('modalBook').hidden = true;
-}
-
-$('btnCloseBookModal').addEventListener('click', closeBookModal);
-$('btnCancelBookModal').addEventListener('click', closeBookModal);
-$('btnAddBookModal').addEventListener('click', function(){ openEditBookModal(-1); });
-
-$('formBookRecord').addEventListener('submit', function(e){
-  e.preventDefault();
-  var idx = +$('bookRecordIndex').value;
-  var title = $('mbTitle').value.trim();
-  if(!title){ toast('Title is required'); return; }
-
-  var updated = {
-    title: title,
-    author: $('mbAuthor').value.trim(),
-    notation: $('mbNotation').value.trim(),
-    subject: $('mbSubject').value.trim(),
-    cutter: $('mbCutter').value.trim(),
-    year: $('mbYear').value.trim(),
-    prefix: $('mbPrefix').value.trim(),
-    copy: $('mbCopy').value.trim(),
-    accessionNumber: $('mbAccNum').value.trim(),
-    shelfLocation: $('mbShelf').value.trim(),
-    status: $('mbStatus').value,
-    isbn: $('mbIsbn').value.trim(),
-    stack: $('mbStack').value.trim()
+  var newTopic = {
+    id: 'CT-' + Date.now().toString(36),
+    n: notation,
+    t: title,
+    parent: parentSub,
+    notes: notes,
+    created: new Date().toISOString()
   };
 
-  if(!updated.stack){
-    var lines = [];
-    if(updated.prefix) lines.push(updated.prefix);
-    if(updated.notation) lines.push(updated.notation);
-    if(updated.cutter) lines.push(updated.cutter);
-    if(updated.year) lines.push(updated.year);
-    if(updated.copy) lines.push(updated.copy);
-    updated.stack = lines.join('\n');
-  }
+  CUSTOM_TOPICS.push(newTopic);
+  saveCustomTopics();
+  rebuildSchemeData();
+  renderCustomTopicsList();
+  buildTree();
+  renderIdxList();
 
-  if(idx === -1){
-    addBookRecord(updated);
-    toast('Added new book: ' + title);
-  } else {
-    updateBookRecord(idx, updated);
-  }
-  closeBookModal();
+  $('formAddCustom').reset();
+  toast('Custom topic "' + title + '" added successfully!');
+  selectEntry(notation, { goto: true });
+}
+
+/* ------------------------------------------------------------------ Tab Navigation */
+function showTab(tabId){
+  document.querySelectorAll('.tab').forEach(function(btn){
+    btn.classList.toggle('act', btn.getAttribute('data-tab') === tabId);
+  });
+  document.querySelectorAll('.pane').forEach(function(pane){
+    pane.classList.toggle('act', pane.id === 'pane-' + tabId);
+    pane.hidden = (pane.id !== 'pane-' + tabId);
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ------------------------------------------------------------------ Event Bindings */
+document.querySelectorAll('.tab').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    showTab(this.getAttribute('data-tab'));
+  });
 });
 
-function printSpineForRecord(rec){
-  var lines = (rec.stack || '').split('\n').filter(Boolean);
-  var win = window.open('', '_blank');
-  win.document.write('<!DOCTYPE html><html><head><title>Print Spine Label</title><style>' +
-    'body { font-family: monospace; display:flex; justify-content:center; align-items:center; height:100vh; margin:0; }' +
-    '.spine { border:2.5px solid #000; padding:14px; border-radius:4px; text-align:center; min-width:140px; font-weight:bold; font-size:18px; }' +
-    '.bar { height:16px; background:repeating-linear-gradient(90deg,#000 0px 2px,#fff 2px 4px,#000 4px 7px,#fff 7px 8px); margin:8px auto; width:80%; }' +
-    '.ft { font-size:10px; color:#555; text-transform:uppercase; margin-top:4px; }' +
-    '</style></head><body onload="window.print();window.close();">' +
-    '<div class="spine">' +
-    lines.map(function(l){ return '<div>' + esc(l) + '</div>'; }).join('') +
-    '<div class="bar"></div><div class="ft">NERDC 2026 \u2022 ' + esc(rec.accessionNumber || 'AIFPU') + '</div>' +
-    '</div></body></html>');
-  win.document.close();
-}
-
-function printSingleSpineLabel(){
-  if(!curCall || !curCall.lines.length){ toast('No call number generated yet'); return; }
-  printSpineForRecord(curCall);
-}
-
-function printLabelSheet(){
-  if(!LOG.length){ toast('Register is empty. Add call numbers first.'); return; }
-  var win = window.open('', '_blank');
-  var labelsHtml = LOG.map(function(r){
-    var lines = (r.stack || '').split('\n');
-    return '<div class="spine-box">' +
-      '<div class="c-line" style="height:4px;background:#008751;margin-bottom:6px"></div>' +
-      lines.map(function(l){ return '<div>' + esc(l) + '</div>'; }).join('') +
-      '<div class="bar"></div>' +
-      '<div class="ft">NERDC 2026 \u2022 ' + esc(r.accessionNumber || '') + '</div>' +
-      '</div>';
-  }).join('');
-
-  win.document.write('<!DOCTYPE html><html><head><title>NERDC Spine Label Sheet</title><style>' +
-    '@page { size: A4; margin: 12mm; }' +
-    'body { font-family: monospace; font-size:13.5px; font-weight:bold; margin:0; }' +
-    '.grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; }' +
-    '.spine-box { border:1.5px solid #000; padding:10px; border-radius:4px; text-align:center; page-break-inside:avoid; break-inside:avoid; }' +
-    '.bar { height:12px; background:repeating-linear-gradient(90deg,#000 0px 2px,#fff 2px 4px,#000 4px 7px,#fff 7px 8px); margin:6px auto; width:85%; }' +
-    '.ft { font-size:9px; color:#444; text-transform:uppercase; margin-top:2px; }' +
-    '</style></head><body onload="window.print();window.close();">' +
-    '<div class="grid">' + labelsHtml + '</div>' +
-    '</body></html>');
-  win.document.close();
-}
-
-function printAccessionRegister(){
-  if(!LOG.length){ toast('Catalogue register is empty'); return; }
-  var win = window.open('', '_blank');
-  var rowsHtml = LOG.map(function(r, i){
-    return '<tr>' +
-      '<td>' + (i + 1) + '</td>' +
-      '<td>' + esc(r.accessionNumber || '') + '</td>' +
-      '<td><b>' + esc((r.stack || '').replace(/\n/g, ' / ')) + '</b></td>' +
-      '<td>' + esc(r.author || '') + '</td>' +
-      '<td><i>' + esc(r.title || '') + '</i></td>' +
-      '<td>' + esc(r.subject || '') + '</td>' +
-      '<td>' + esc(r.shelfLocation || '') + '</td>' +
-      '<td>' + esc(r.status || 'Available') + '</td>' +
-      '<td>' + esc(r.date || '') + '</td>' +
-      '</tr>';
-  }).join('');
-
-  win.document.write('<!DOCTYPE html><html><head><title>NERDC School Library Accession Register</title><style>' +
-    '@page { size: A4 landscape; margin: 12mm; }' +
-    'body { font-family: sans-serif; font-size:11px; margin:0; color:#111; }' +
-    'h1 { margin:0 0 4px; font-size:16px; text-transform:uppercase; color:#008751; }' +
-    'table { width:100%; border-collapse:collapse; margin-top:12px; }' +
-    'th, td { border:1px solid #ccc; padding:6px 8px; text-align:left; vertical-align:top; }' +
-    'th { background:#eee; font-weight:bold; }' +
-    '</style></head><body onload="window.print();window.close();">' +
-    '<h1>NERDC School Library Accession Register</h1>' +
-    '<div>National Curriculum Classification Scheme \u2022 Official Catalogue Inventory</div>' +
-    '<table><thead><tr><th>#</th><th>Acc No</th><th>Call Number</th><th>Author</th><th>Title</th><th>Topic</th><th>Shelf</th><th>Status</th><th>Date</th></tr></thead><tbody>' +
-    rowsHtml +
-    '</tbody></table></body></html>');
-  win.document.close();
-}
-
-function downloadCsv(){
-  var rows = [['No.','Accession Number','Call Number (Single)','Spine Stack','Notation','Topic','Author','Title','Year','Prefix','Copy','Shelf Location','Status','Date']];
-  LOG.forEach(function(r, i){
-    rows.push([i + 1, r.accessionNumber || '', (r.stack || '').replace(/\n/g, ' '), r.stack || '', r.notation || '', r.subject || '', r.author || '', r.title || '', r.year || '', r.prefix || '', r.copy || '', r.shelfLocation || '', r.status || '', r.date || '']);
-  });
-  function csvCell(v){
-    v = String(v == null ? '' : v);
-    return /[",\n\r]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+document.addEventListener('click', function(ev){
+  var btn = ev.target.closest('[data-tab]');
+  if(btn && !btn.classList.contains('tab')){
+    showTab(btn.getAttribute('data-tab'));
   }
-  var csv = '\uFEFF' + rows.map(function(r){ return r.map(csvCell).join(','); }).join('\r\n');
-  var blob = new Blob([csv], { type: 'text/csv;charset=utf-8' }), a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'NERDC_Library_Accession_Register_2026.csv';
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(function(){ URL.revokeObjectURL(a.href); document.body.removeChild(a); }, 500);
+  var goBtn = ev.target.closest('[data-go]');
+  if(goBtn){
+    var targetN = goBtn.getAttribute('data-go');
+    if(byN[targetN]) selectEntry(targetN, { goto: true });
+  }
+});
+
+// Search input handlers
+var qInp = $('q');
+if(qInp){
+  qInp.addEventListener('input', function(){
+    showSugg();
+    runSearch();
+  });
+  qInp.addEventListener('keydown', function(ev){
+    var box = $('sugg');
+    if(!box || box.hidden) return;
+    var items = box.querySelectorAll('div[role="option"]');
+    if(!items.length) return;
+    if(ev.key === 'ArrowDown'){
+      ev.preventDefault();
+      sg.on = (sg.on + 1) % items.length;
+      items.forEach(function(it, idx){ it.classList.toggle('on', idx === sg.on); });
+    } else if(ev.key === 'ArrowUp'){
+      ev.preventDefault();
+      sg.on = (sg.on - 1 + items.length) % items.length;
+      items.forEach(function(it, idx){ it.classList.toggle('on', idx === sg.on); });
+    } else if(ev.key === 'Enter'){
+      if(sg.on >= 0 && sg.items[sg.on]){
+        ev.preventDefault();
+        pickSugg(sg.on);
+      }
+    } else if(ev.key === 'Escape'){
+      box.hidden = true;
+    }
+  });
 }
 
-function exportCatalogueJson(){
-  if(!LOG.length){ toast('Catalogue is empty'); return; }
-  var jsonStr = JSON.stringify(LOG, null, 2);
-  var blob = new Blob([jsonStr], { type: 'application/json' }), a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'NERDC_Library_Catalogue_Backup_2026.json';
+// Click outside sugg
+document.addEventListener('click', function(ev){
+  var box = $('sugg');
+  if(box && !box.hidden && !ev.target.closest('.sw')){
+    box.hidden = true;
+  }
+});
+
+$('qClear').addEventListener('click', function(){
+  $('q').value = '';
+  $('sugg').hidden = true;
+  runSearch();
+  $('q').focus();
+});
+
+$('fStage').addEventListener('change', runSearch);
+$('fSubj').addEventListener('change', runSearch);
+
+// Direct Mode toggles
+$('btnModeSearch').addEventListener('click', function(){
+  activeGenMode = 'search';
+  this.classList.add('active');
+  $('btnModeDirect').classList.remove('active');
+  $('wrapSearchMode').hidden = false;
+  $('wrapDirectMode').hidden = true;
+});
+
+$('btnModeDirect').addEventListener('click', function(){
+  activeGenMode = 'direct';
+  this.classList.add('active');
+  $('btnModeSearch').classList.remove('active');
+  $('wrapDirectMode').hidden = false;
+  $('inpDirectNotation').focus();
+});
+
+$('btnResolveNotation').addEventListener('click', function(){
+  resolveDirectNotation($('inpDirectNotation').value);
+});
+
+$('inpDirectNotation').addEventListener('keydown', function(ev){
+  if(ev.key === 'Enter'){
+    ev.preventDefault();
+    resolveDirectNotation(this.value);
+  }
+});
+
+// Cutter inputs event listeners
+['au', 'ti', 'yr', 'ov', 'cp', 'accNum', 'shLoc'].forEach(function(id){
+  var el = $(id);
+  if(el) el.addEventListener('input', renderCall);
+});
+
+['nm', 'dg', 'pfx'].forEach(function(id){
+  var el = $(id);
+  if(el) el.addEventListener('change', renderCall);
+});
+
+['wm', 'dot'].forEach(function(id){
+  var el = $(id);
+  if(el) el.addEventListener('change', renderCall);
+});
+
+// Stack Line editor toggle
+$('btnToggleEditCall').addEventListener('click', function(){
+  var box = $('callEditBox');
+  box.hidden = !box.hidden;
+});
+
+$('callStackText').addEventListener('input', function(){
+  var customLines = this.value.split('\n').map(function(s){ return s.trim(); }).filter(Boolean);
+  var spine = $('spineLabel');
+  if(spine){
+    var h = customLines.map(function(l, i){
+      var clsName = (i === 0 && l.length <= 4 && isNaN(l)) ? 'pfx' : (i === 1 ? 'not' : 'cut');
+      return '<div class="spine-line ' + clsName + '">' + esc(l) + '</div>';
+    }).join('');
+    h += '<div class="spine-barcode">||| | |||| | ||| | |||</div>';
+    spine.innerHTML = h;
+  }
+});
+
+// Relative Index search
+$('idxQ').addEventListener('input', renderIdxList);
+$('idxClear').addEventListener('click', function(){
+  $('idxQ').value = '';
+  renderIdxList();
+});
+
+// Subject Headings search
+$('headQ').addEventListener('input', renderHList);
+$('headClear').addEventListener('click', function(){
+  $('headQ').value = '';
+  renderHList();
+});
+
+// Custom topics form
+var formAdd = $('formAddCustom');
+if(formAdd) formAdd.addEventListener('submit', handleAddCustomTopic);
+
+// Export / Import Catalogue Log
+$('btnExportLog').addEventListener('click', function(){
+  var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(LOG, null, 2));
+  var a = document.createElement('a');
+  a.setAttribute("href", dataStr);
+  a.setAttribute("download", "naijalib_catalogue_register_" + new Date().toISOString().slice(0, 10) + ".json");
   document.body.appendChild(a);
   a.click();
-  setTimeout(function(){ URL.revokeObjectURL(a.href); document.body.removeChild(a); }, 500);
-  toast('Exported catalogue JSON');
-}
+  a.remove();
+});
 
-function importCatalogueJson(file){
+$('btnPrintLog').addEventListener('click', function(){
+  window.print();
+});
+
+$('btnClearLog').addEventListener('click', function(){
+  if(confirm('Are you sure you want to clear all records from the Catalogue Register?')){
+    LOG = [];
+    saveLog();
+    renderLog();
+    toast('Catalogue Register cleared');
+  }
+});
+
+$('btnImportLog').addEventListener('click', function(){
+  $('inpImportLog').click();
+});
+
+$('inpImportLog').addEventListener('change', function(ev){
+  var file = ev.target.files[0];
+  if(!file) return;
   var reader = new FileReader();
   reader.onload = function(e){
     try {
@@ -2842,158 +3188,34 @@ function importCatalogueJson(file){
           renderLog();
           toast('Successfully imported ' + imported.length + ' records');
         }
-      } else { toast('Invalid JSON file format'); }
-    } catch(err){ toast('Could not parse JSON file'); }
+      } else { alert('Invalid catalogue register format'); }
+    } catch(err){ alert('Error parsing JSON file: ' + err.message); }
   };
   reader.readAsText(file);
-}
-
-/* ------------------------------------------------------------------ Scheme Customizer Logic */
-function renderCustomTopicsList(){
-  var c = $('customTopicsList');
-  if(!c) return;
-
-  if(!CUSTOM_TOPICS.length){
-    c.innerHTML = '<div style="padding:20px;text-align:center;color:var(--muted)">' +
-      'No custom curriculum topics added yet.<br>' +
-      '<span class="hint">Use the form on the left to add school-specific topics, TVET modules or custom notations.</span>' +
-      '</div>';
-    return;
-  }
-
-  var q = norm($('qCustomTopics') ? $('qCustomTopics').value : '');
-  var filtered = CUSTOM_TOPICS.filter(function(ct){
-    if(!q) return true;
-    var hay = norm((ct.n || '') + ' ' + (ct.t || '') + ' ' + (ct.notes || ''));
-    return hay.indexOf(q) !== -1;
-  });
-
-  var h = '';
-  filtered.forEach(function(ct){
-    var clsId = ct.n ? ct.n.slice(0, 2) : '00';
-    h += '<div class="hitem">' +
-      '<div style="flex:1;min-width:0">' +
-        '<div><span class="nb c' + clsId + '">' + esc(ct.n) + '</span> <b>' + esc(ct.t) + '</b></div>' +
-        '<div style="font-size:12px;color:var(--muted);margin-top:2px">' + esc(ct.stg || 'Custom Stage') + ' &bull; ' + esc(ct.lv || 'Topic') + (ct.notes ? ' &bull; <i>' + esc(ct.notes) + '</i>' : '') + '</div>' +
-      '</div>' +
-      '<div style="display:flex;gap:6px">' +
-        '<button type="button" class="btn sm ghost" data-edit-ct="' + esc(ct.id) + '">✏️</button>' +
-        '<button type="button" class="btn sm ghost" style="color:#ba1a1a" data-del-ct="' + esc(ct.id) + '">&times;</button>' +
-      '</div>' +
-    '</div>';
-  });
-
-  c.innerHTML = h;
-
-  c.querySelectorAll('[data-edit-ct]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var id = this.getAttribute('data-edit-ct');
-      var item = CUSTOM_TOPICS.find(function(x){ return x.id === id; });
-      if(item){
-        $('topicEditId').value = item.id;
-        $('inpClass').value = item.cls || '00';
-        $('inpStage').value = item.stg || 'Basic Education';
-        $('inpHierarchyLevel').value = item.lv || 'Subtopic';
-        $('inpNotation').value = item.n || '';
-        $('inpTitle').value = item.t || '';
-        $('inpNotes').value = item.notes || '';
-        $('btnSaveCustomTopic').textContent = '💾 Update Topic';
-        toast('Loaded topic for editing: ' + item.n);
-      }
-    });
-  });
-
-  c.querySelectorAll('[data-del-ct]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var id = this.getAttribute('data-del-ct');
-      var item = CUSTOM_TOPICS.find(function(x){ return x.id === id; });
-      if(item && confirm('Delete custom topic ' + item.n + ' (' + item.t + ')?')){
-        CUSTOM_TOPICS = CUSTOM_TOPICS.filter(function(x){ return x.id !== id; });
-        saveCustomTopics();
-        rebuildSchemeData();
-        renderCustomTopicsList();
-        buildTree();
-        renderIdxList();
-        toast('Custom topic removed from scheme');
-      }
-    });
-  });
-}
-
-$('formCustomTopic').addEventListener('submit', function(e){
-  e.preventDefault();
-  var notation = $('inpNotation').value.trim();
-  var title = $('inpTitle').value.trim();
-  if(!notation || !title){ toast('Notation and Title are required'); return; }
-
-  var editId = $('topicEditId').value;
-  if(editId){
-    // Update existing
-    var item = CUSTOM_TOPICS.find(function(x){ return x.id === editId; });
-    if(item){
-      item.n = notation;
-      item.t = title;
-      item.cls = $('inpClass').value;
-      item.stg = $('inpStage').value;
-      item.lv = $('inpHierarchyLevel').value;
-      item.notes = $('inpNotes').value.trim();
-    }
-  } else {
-    // Add new
-    CUSTOM_TOPICS.push({
-      id: 'ct-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
-      n: notation,
-      t: title,
-      cls: $('inpClass').value,
-      stg: $('inpStage').value,
-      lv: $('inpHierarchyLevel').value,
-      notes: $('inpNotes').value.trim()
-    });
-  }
-
-  saveCustomTopics();
-  rebuildSchemeData();
-  renderCustomTopicsList();
-  buildTree();
-  renderIdxList();
-
-  // Reset form
-  $('topicEditId').value = '';
-  $('inpNotation').value = '';
-  $('inpTitle').value = '';
-  $('inpNotes').value = '';
-  $('btnSaveCustomTopic').textContent = '💾 Save Topic to Scheme';
-
-  toast('Topic ' + notation + ' saved to classification scheme!');
 });
 
-$('btnClearTopicForm').addEventListener('click', function(){
-  $('topicEditId').value = '';
-  $('inpNotation').value = '';
-  $('inpTitle').value = '';
-  $('inpNotes').value = '';
-  $('btnSaveCustomTopic').textContent = '💾 Save Topic to Scheme';
-});
-
-$('btnExportCustomScheme').addEventListener('click', function(){
-  if(!CUSTOM_TOPICS.length){ toast('No custom topics to export'); return; }
-  var jsonStr = JSON.stringify(CUSTOM_TOPICS, null, 2);
-  var blob = new Blob([jsonStr], { type: 'application/json' }), a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'NERDC_Custom_Scheme_Modifications_2026.json';
+// Export / Import Custom Topics
+$('btnExportCustomTopics').addEventListener('click', function(){
+  var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(CUSTOM_TOPICS, null, 2));
+  var a = document.createElement('a');
+  a.setAttribute("href", dataStr);
+  a.setAttribute("download", "nerdc_custom_topics_" + new Date().toISOString().slice(0, 10) + ".json");
   document.body.appendChild(a);
   a.click();
-  setTimeout(function(){ URL.revokeObjectURL(a.href); document.body.removeChild(a); }, 500);
-  toast('Exported custom scheme JSON');
+  a.remove();
 });
 
-$('inpImportCustomScheme').addEventListener('change', function(e){
-  var file = e.target.files[0];
+$('btnImportCustomTopics').addEventListener('click', function(){
+  $('inpImportCustomTopics').click();
+});
+
+$('inpImportCustomTopics').addEventListener('change', function(ev){
+  var file = ev.target.files[0];
   if(!file) return;
   var reader = new FileReader();
-  reader.onload = function(evt){
+  reader.onload = function(e){
     try {
-      var imported = JSON.parse(evt.target.result);
+      var imported = JSON.parse(e.target.result);
       if(Array.isArray(imported)){
         CUSTOM_TOPICS = CUSTOM_TOPICS.concat(imported);
         saveCustomTopics();
@@ -3002,290 +3224,10 @@ $('inpImportCustomScheme').addEventListener('change', function(e){
         buildTree();
         renderIdxList();
         toast('Imported ' + imported.length + ' custom topics');
-      } else { toast('Invalid JSON format'); }
-    } catch(err){ toast('Could not parse JSON file'); }
+      } else { alert('Invalid custom topics format'); }
+    } catch(err){ alert('Error parsing custom topics file'); }
   };
   reader.readAsText(file);
-});
-
-$('btnResetSchemeDefaults').addEventListener('click', function(){
-  if(confirm('Reset all custom topic additions and revert back to the statutory 2026 NERDC scheme?')){
-    CUSTOM_TOPICS = [];
-    saveCustomTopics();
-    rebuildSchemeData();
-    renderCustomTopicsList();
-    buildTree();
-    renderIdxList();
-    toast('Scheme reset to statutory 2026 baseline');
-  }
-});
-
-/* ------------------------------------------------------------------ Subject Headings Pane */
-function renderHList(){
-  var c = $('hlist');
-  if(!c) return;
-  var q = norm($('hq') ? $('hq').value : '');
-  var h = '';
-  DATA.h.forEach(function(row){
-    var notat = row[0], title = row[1];
-    if(q && norm(title + ' ' + notat).indexOf(q) === -1) return;
-    var clsId = notat ? notat.slice(0, 2) : '00';
-    h += '<div class="hitem" data-notat="' + esc(notat) + '">' +
-      '<div><b>' + esc(title) + '</b></div>' +
-      (notat ? '<span class="nb c' + clsId + '">' + esc(notat) + '</span>' : '') +
-    '</div>';
-  });
-  c.innerHTML = h;
-
-  c.querySelectorAll('.hitem').forEach(function(item){
-    item.addEventListener('click', function(){
-      var notat = this.getAttribute('data-notat');
-      if(byN[notat]){
-        select(byN[notat]);
-        setTab('gen');
-      }
-    });
-  });
-}
-
-/* ------------------------------------------------------------------ Browse Scheme Tree */
-function buildTree(){
-  var tree = $('tree');
-  if(!tree) return;
-  var h = '';
-  ['00', '01', '02', '03', '04'].forEach(function(clsCode){
-    var clsName = CLS[clsCode];
-    var rootEntry = byN[clsCode] || { n: clsCode, t: clsName, cls: clsCode, lv: 1 };
-    h += '<li>' +
-      '<div class="tn">' +
-        '<button type="button" class="tg" aria-expanded="false" data-tree-n="' + clsCode + '">+</button>' +
-        '<span class="nb c' + clsCode + '">' + clsCode + '</span>' +
-        '<span class="ttl"><b>' + esc(clsName) + '</b></span>' +
-        '<button type="button" class="btn sm ghost" data-use-tree="' + clsCode + '">Use</button>' +
-      '</div>' +
-      '<ul hidden id="tree-sub-' + clsCode + '"></ul>' +
-    '</li>';
-  });
-  tree.innerHTML = h;
-
-  tree.querySelectorAll('.tg').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var n = this.getAttribute('data-tree-n');
-      var ul = $('tree-sub-' + n);
-      if(!ul) return;
-      if(this.textContent === '+'){
-        this.textContent = '\u2212';
-        this.setAttribute('aria-expanded', 'true');
-        ul.hidden = false;
-        if(!ul.children.length) expandTreeNode(n, ul);
-      } else {
-        this.textContent = '+';
-        this.setAttribute('aria-expanded', 'false');
-        ul.hidden = true;
-      }
-    });
-  });
-
-  tree.querySelectorAll('[data-use-tree]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var n = this.getAttribute('data-use-tree');
-      if(byN[n]){ select(byN[n]); setTab('gen'); }
-    });
-  });
-}
-
-function expandTreeNode(parentN, ul){
-  var children = kids[parentN] || [];
-  if(!children.length){
-    ul.innerHTML = '<li style="color:var(--muted);font-size:12px;padding-left:14px">No deeper subtopics.</li>';
-    return;
-  }
-  var h = '';
-  children.forEach(function(c){
-    var hasKids = (kids[c.n] && kids[c.n].length > 0);
-    h += '<li>' +
-      '<div class="tn">' +
-        (hasKids ? '<button type="button" class="tg" data-tree-n="' + esc(c.n) + '">+</button>' : '<span class="tg leaf">&bull;</span>') +
-        '<span class="nb c' + c.cls + '">' + esc(c.n) + '</span>' +
-        '<span class="ttl">' + esc(c.t) + (c.isCustom ? ' <span class="meta-tag amber">Custom</span>' : '') + '</span>' +
-        '<button type="button" class="btn sm ghost" data-use-tree="' + esc(c.n) + '">Use</button>' +
-      '</div>' +
-      (hasKids ? '<ul hidden id="tree-sub-' + esc(c.n.replace(/\./g, '_')) + '"></ul>' : '') +
-    '</li>';
-  });
-  ul.innerHTML = h;
-
-  ul.querySelectorAll('.tg:not(.leaf)').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var n = this.getAttribute('data-tree-n');
-      var subUl = $('tree-sub-' + n.replace(/\./g, '_'));
-      if(!subUl) return;
-      if(this.textContent === '+'){
-        this.textContent = '\u2212';
-        subUl.hidden = false;
-        if(!subUl.children.length) expandTreeNode(n, subUl);
-      } else {
-        this.textContent = '+';
-        subUl.hidden = true;
-      }
-    });
-  });
-
-  ul.querySelectorAll('[data-use-tree]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var n = this.getAttribute('data-use-tree');
-      if(byN[n]){ select(byN[n]); setTab('gen'); }
-    });
-  });
-}
-
-/* ------------------------------------------------------------------ Cutter Table & Quick Cutter */
-function buildCutTbl(){
-  var tbl = $('cutTbl');
-  if(!tbl) return;
-  tbl.innerHTML = '<thead><tr><th>Word Beginning</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th></tr></thead><tbody>' +
-    '<tr><td><b>Vowel</b></td><td>—</td><td>b-d</td><td>e-l</td><td>m-p</td><td>q-s</td><td>t-v</td><td>w-z</td><td>—</td><td>—</td></tr>' +
-    '<tr><td><b>S</b></td><td>—</td><td>a-c</td><td>d-m</td><td>n-p</td><td>q-t</td><td>u-z</td><td>—</td><td>—</td><td>—</td></tr>' +
-    '<tr><td><b>Consonant</b></td><td>—</td><td>—</td><td>a-c</td><td>d-h</td><td>i-l</td><td>m-p</td><td>q-t</td><td>u-z</td><td>—</td></tr>' +
-    '<tr><td><b>Expansion</b></td><td>—</td><td>—</td><td>a-d</td><td>e-h</td><td>i-l</td><td>m-p</td><td>q-t</td><td>u-z</td><td>—</td></tr>' +
-    '</tbody>';
-}
-
-/* ------------------------------------------------------------------ Scheme Structural Relationship Diagrams */
-function buildFigs(){
-  var f = $('figs');
-  if(!f || !IMG || !IMG.rel) return;
-  f.innerHTML = IMG.rel.map(function(r){
-    return '<figure><img alt="' + esc(r.cap) + '" src="data:image/jpeg;base64,' + r.b + '"><figcaption>' + esc(r.cap) + '</figcaption></figure>';
-  }).join('');
-}
-
-/* ------------------------------------------------------------------ Navigation Tabs Controller */
-function setTab(tabId){
-  ['gen', 'idx', 'head', 'browse', 'cut', 'log', 'edit', 'help'].forEach(function(t){
-    var btn = $('t-' + t);
-    var pane = $('pane-' + t);
-    if(btn) btn.setAttribute('aria-selected', t === tabId ? 'true' : 'false');
-    if(pane) pane.hidden = (t !== tabId);
-  });
-  if(tabId === 'log') renderLog();
-  if(tabId === 'edit') renderCustomTopicsList();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-document.querySelectorAll('nav.tabs button.tab').forEach(function(btn){
-  btn.addEventListener('click', function(){
-    setTab(this.getAttribute('data-tab'));
-  });
-});
-
-/* ------------------------------------------------------------------ Mode Switcher (Search vs Direct) */
-$('btnModeSearch').addEventListener('click', function(){
-  activeGenMode = 'search';
-  $('btnModeSearch').classList.add('active');
-  $('btnModeDirect').classList.remove('active');
-  $('wrapSearchMode').hidden = false;
-  $('wrapDirectMode').hidden = true;
-});
-
-$('btnModeDirect').addEventListener('click', function(){
-  activeGenMode = 'direct';
-  $('btnModeDirect').classList.add('active');
-  $('btnModeSearch').classList.remove('active');
-  $('wrapSearchMode').hidden = true;
-  $('wrapDirectMode').hidden = false;
-});
-
-$('btnResolveNotation').addEventListener('click', function(){
-  resolveDirectNotation($('inpDirectNotation').value);
-});
-$('inpDirectNotation').addEventListener('keydown', function(e){
-  if(e.key === 'Enter'){
-    e.preventDefault();
-    resolveDirectNotation(this.value);
-  }
-});
-
-/* ------------------------------------------------------------------ Call Stack Manual Edit Toggle */
-$('btnToggleEditCall').addEventListener('click', function(){
-  var box = $('callEditBox');
-  if(box.hidden){
-    box.hidden = false;
-    $('callStackText').value = curCall ? curCall.stack : '';
-  } else {
-    box.hidden = true;
-  }
-});
-$('callStackText').addEventListener('input', function(){
-  manualCallOverride = this.value;
-  renderCall();
-});
-
-/* ------------------------------------------------------------------ Input Listeners */
-['au', 'ti', 'yr', 'ov', 'cp', 'accNum', 'shLoc'].forEach(function(id){
-  if($(id)) $(id).addEventListener('input', function(){ manualCallOverride = null; renderCall(); });
-});
-['pfx', 'nm', 'dg'].forEach(function(id){
-  if($(id)) $(id).addEventListener('change', function(){ manualCallOverride = null; renderCall(); });
-});
-['wm', 'dot'].forEach(function(id){
-  if($(id)) $(id).addEventListener('change', function(){ manualCallOverride = null; renderCall(); });
-});
-
-$('q').addEventListener('input', runSearch);
-$('qClear').addEventListener('click', function(){ $('q').value = ''; runSearch(); });
-$('fStage').addEventListener('change', runSearch);
-$('fSubj').addEventListener('change', runSearch);
-
-document.querySelectorAll('.demo-chip').forEach(function(chip){
-  chip.addEventListener('click', function(){
-    $('q').value = this.getAttribute('data-try');
-    runSearch();
-  });
-});
-
-if($('idxQ')) $('idxQ').addEventListener('input', renderIdxList);
-if($('idxClear')) $('idxClear').addEventListener('click', function(){ $('idxQ').value = ''; renderIdxList(); });
-if($('hq')) $('hq').addEventListener('input', renderHList);
-if($('hClear')) $('hClear').addEventListener('click', function(){ $('hq').value = ''; renderHList(); });
-if($('catSearch')) $('catSearch').addEventListener('input', renderLog);
-if($('catStatusFilter')) $('catStatusFilter').addEventListener('change', renderLog);
-if($('qCustomTopics')) $('qCustomTopics').addEventListener('input', renderCustomTopicsList);
-
-$('logCsv').addEventListener('click', downloadCsv);
-$('logExportJson').addEventListener('click', exportCatalogueJson);
-$('logImportJson').addEventListener('change', function(e){
-  if(e.target.files && e.target.files[0]) importCatalogueJson(e.target.files[0]);
-});
-$('logPrintRegister').addEventListener('click', printAccessionRegister);
-$('logPrintLabels').addEventListener('click', printLabelSheet);
-$('logClear').addEventListener('click', function(){
-  if(LOG.length && confirm('Are you sure you want to clear all ' + LOG.length + ' catalogued records?')){
-    LOG = [];
-    saveLog();
-    renderLog();
-    toast('Catalogue cleared');
-  }
-});
-
-/* ------------------------------------------------------------------ Tree Controls */
-$('btnExpandAll').addEventListener('click', function(){
-  document.querySelectorAll('#tree .tg').forEach(function(btn){
-    if(btn.textContent === '+') btn.click();
-  });
-});
-$('btnCollapseAll').addEventListener('click', function(){
-  document.querySelectorAll('#tree > li > ul').forEach(function(ul){
-    ul.hidden = true;
-    var btn = ul.parentElement.querySelector(':scope > .tn > .tg');
-    if(btn){ btn.textContent = '+'; btn.setAttribute('aria-expanded', 'false'); }
-  });
-});
-$('btnExpandSubjects').addEventListener('click', function(){
-  $('btnCollapseAll').click();
-  document.querySelectorAll('#tree > li > .tn > .tg').forEach(function(btn){
-    if(btn.textContent === '+') btn.click();
-  });
 });
 
 /* ------------------------------------------------------------------ Lightbox & Kiosk */
@@ -3294,14 +3236,18 @@ $('btnKiosk').addEventListener('click', function(){
   toast(document.body.classList.contains('kiosk-mode') ? 'Exhibition Display Mode Activated' : 'Normal Display Mode');
 });
 
-$('figs').addEventListener('click', function(ev){
-  var im = ev.target.closest('img');
-  if(im){
-    var lb = $('lightbox');
-    lb.querySelector('img').src = im.src;
-    lb.hidden = false;
-  }
-});
+var figsEl = $('figs');
+if(figsEl){
+  figsEl.addEventListener('click', function(ev){
+    var im = ev.target.closest('img');
+    if(im){
+      var lb = $('lightbox');
+      lb.querySelector('img').src = im.src;
+      lb.hidden = false;
+    }
+  });
+}
+
 $('lightbox').addEventListener('click', function(){ this.hidden = true; });
 document.addEventListener('keydown', function(ev){
   if(ev.key === 'Escape') $('lightbox').hidden = true;
