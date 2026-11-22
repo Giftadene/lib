@@ -2874,20 +2874,16 @@ function renderTreeSubjects(clsId){
 
 /* ------------------------------------------------------------------ Browse Scheme Diagrams */
 function buildFigs(){
-  var c = $('figs');
-  if(!c) return;
-  if(!IMG.rel || !IMG.rel.length){
-    c.innerHTML = '<div class="hint" style="padding:16px;text-align:center">No scheme relationship diagrams attached.</div>';
+  var f = $('figs');
+  if(!f || !IMG || !IMG.rel || !IMG.rel.length){
+    if(f) f.innerHTML = '<div class="hint" style="padding:16px;text-align:center">No scheme relationship diagrams attached.</div>';
     return;
   }
-  var h = '';
-  IMG.rel.forEach(function(d, i){
-    h += '<div class="fig-card">' +
-      '<div class="fig-cap">Diagram ' + (i + 1) + ' &mdash; Scheme Relationship Matrix</div>' +
-      '<img alt="NERDC Scheme Diagram" src="data:image/png;base64,' + d + '">' +
-    '</div>';
-  });
-  c.innerHTML = h;
+  f.innerHTML = IMG.rel.map(function(r){
+    var base64Data = (typeof r === 'object' && r.b) ? r.b : r;
+    var caption = (typeof r === 'object' && r.cap) ? r.cap : 'Scheme Structural Relationship Diagram';
+    return '<figure><img alt="' + esc(caption) + '" src="data:image/jpeg;base64,' + base64Data + '"><figcaption>' + esc(caption) + '</figcaption></figure>';
+  }).join('');
 }
 
 /* ------------------------------------------------------------------ Cutter Table */
